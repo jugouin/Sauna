@@ -30,3 +30,7 @@ a {
     text-decoration: inherit;
 }
 
+.main-btn {
+    background-color: var(--primary-color);
+    
+}

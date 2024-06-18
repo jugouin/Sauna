@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header/Header';
 import main_img from './home_img.png';
+import Card from './Card/Card';
 import './Home.css';
 
 export default function () {
@@ -20,5 +21,10 @@ export default function () {
                 </p>
             </div>
         </section>
+        <div className='cards'>
+            <Card/>
+            <Card/>
+            <Card/>
+        </div>
     </div>;
 }

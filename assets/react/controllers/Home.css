@@ -37,3 +37,11 @@ section {
     height: 20vh;
     text-align: justify;
 }
+
+.cards {
+    width: 100%;
+    display: flex;
+    margin-inline: 5vw;
+    align-items: center;
+    justify-content: space-around;
+}
