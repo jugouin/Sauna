@@ -1,0 +1,32 @@
+:root {
+    --small-font-size: calc(0.4vw + 0.8em);
+    --medium-font-size: calc(1.3rem + .7vw);
+    --large-font-size: calc(5vw + 0.5rem);
+    --primary-color: #B07740;
+    --secondary-color: #462A1A;
+    --third-color: #6C442C;
+    --forth-color: #DBC096;
+    --accent-color: #F5EEDC;
+    --border-thin-style: 2px solid var(--secondary-color);
+    --border-bold-style: 10px solid var(--secondary-color);
+    --filter-opacity: opacity(.68) drop-shadow(0 0 0 rgb(0, 10, 55, 0.7));
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+h2 {
+    font-weight: 300;
+    padding: 3%;
+    font-size: var(--large-font-size);
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+

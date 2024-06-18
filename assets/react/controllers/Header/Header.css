@@ -1,0 +1,30 @@
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.menu-header ul {
+    list-style-type: none;
+    margin: 0;
+}
+
+.menu-header li {
+    display: inline-block;
+    margin-inline: 20px;
+}
+
+.menu-header li a {
+    font-size: var(--medium-font-size);
+    font-weight: 100;
+    text-wrap: nowrap;
+}
+
+.menu-header li a:hover {
+    font-weight: 500;
+}

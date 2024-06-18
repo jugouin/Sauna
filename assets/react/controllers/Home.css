@@ -1,0 +1,39 @@
+.img_header {
+    height: 35vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.main_img {
+    width: max-content;
+    position: relative;
+    top: -25vh;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.description {
+    display: inline-flex;
+    margin-inline: 5vw;
+    align-items: center;
+}
+
+.img_box {
+    width: 50%;
+}
+
+.secondary_img {
+    height: 20vw;
+    margin-inline: 5vw;
+}
+
+.p_description {
+    margin-inline: 5vw;
+    height: 20vh;
+    text-align: justify;
+}
