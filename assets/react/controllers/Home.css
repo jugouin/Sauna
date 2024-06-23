@@ -1,13 +1,14 @@
 .img_header {
-    height: 35vh;
-    width: 100vw;
+    position: relative;
+    height: 40vw;
     overflow: hidden;
+    top: -150px;
+    z-index: -1;
 }
 
 .main_img {
-    width: max-content;
-    position: relative;
-    top: -25vh;
+    width: 100vw;
+    max-height: fit-content;
 }
 
 section {
@@ -17,9 +18,15 @@ section {
     align-items: center;
 }
 
+section > h2 {
+    padding-top: 0;
+    margin-top: -5%
+}
+
 .description {
     display: inline-flex;
     margin-inline: 5vw;
+    margin-bottom: 5vh;
     align-items: center;
 }
 
@@ -30,18 +37,24 @@ section {
 .secondary_img {
     height: 20vw;
     margin-inline: 5vw;
+    filter: var(--filter-shadow);
 }
 
 .p_description {
+    height: 20vw;
     margin-inline: 5vw;
-    height: 20vh;
+    margin-bottom: 0;
+    overflow: scroll;
     text-align: justify;
+    align-content: center;
 }
 
-.cards {
-    width: 100%;
+.home-cards {
+    border-radius: initial;
+    border: none;
+    width: 90vw;
     display: flex;
-    margin-inline: 5vw;
+    margin: 5vw;
     align-items: center;
     justify-content: space-around;
 }

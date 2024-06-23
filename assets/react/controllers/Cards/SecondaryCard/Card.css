@@ -1,0 +1,21 @@
+.secondary_card {
+    display: flex;
+    flex-direction: row;
+    height: 20vh;
+    margin: 5vh;
+    margin-inline: 15vh;
+}
+
+.secondary-card-img {
+    height: 100%;
+    width: 30%;
+}
+
+.secondary-card-body {
+    padding: 3vh;
+}
+
+.secondary-card-btn {
+    justify-self: flex-end;
+    align-self: baseline;
+}

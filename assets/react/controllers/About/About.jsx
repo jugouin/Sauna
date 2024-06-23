@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from './Header/Header';
-import main_img from './home_img.png';
-import img_header from './header_img.jpeg';
-import Card from './Cards/PrimaryCard/Card';
-import Footer from './Footer/Footer';
-import './Home.css';
+import Header from '../Header/Header';
+import img_header from '../header_img.jpeg';
+import main_img from '../home_img.png';
+import Card from '../Cards/SecondaryCard/Card';
+import Footer from '../Footer/Footer';
+import "./About.css";
 
 export default function () {
     return <div>
@@ -13,7 +13,7 @@ export default function () {
             <img src={img_header} className='main_img'/>
         </div>
         <section>
-            <h2>Location de Sauna</h2>
+            <h2>Présentation</h2>
             <div className='description'>
                 <div>
                     <img src={main_img} className='secondary_img'/>
@@ -25,7 +25,7 @@ export default function () {
                 </p>
             </div>
         </section>
-        <div className='card-group home-cards'>
+        <div className='about-cards'>
             <Card/>
             <Card/>
             <Card/>

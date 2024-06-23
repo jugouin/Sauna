@@ -1,0 +1,16 @@
+.primary-card {
+    margin-inline: 5vw;
+}
+
+.primary-card-img {
+    height: 18vw;
+    width: 100%;
+}
+
+.primary-card-body {
+    padding: 5vh;
+}
+
+.primary-card-btn {
+    margin-inline: 3vw;
+}

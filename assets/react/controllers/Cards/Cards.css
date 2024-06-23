@@ -1,0 +1,23 @@
+.card {
+    filter: var(--filter-shadow);
+    background-color: var(--accent-color);
+    border: inherit;
+    border-radius: inherit;
+    font-size: var(--small-font-size);
+}
+
+.card-img {
+    object-fit: cover;
+    border-radius: initial;
+}
+
+.card-body {
+    display: grid;
+    height: 100%;
+
+}
+
+.card-text {
+    text-align: justify;
+    color: var(--secondary-color);
+}

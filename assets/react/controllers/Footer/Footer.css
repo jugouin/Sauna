@@ -1,0 +1,21 @@
+.footer {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    height: 50px;
+}
+
+.footer-info {
+    justify-content: center;
+    margin-inline: 15vw;
+}
+
+.container > p {
+    margin-bottom: 0;
+    padding-inline: 1vw;
+}
+
+.footer-container {
+    display: flex;
+    padding-inline: 20px;
+    align-items: center;
+}
