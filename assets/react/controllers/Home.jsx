@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from './Header/Header';
-import main_img from './home_img.png';
-import img_header from './header_img.jpeg';
-import Card from './Cards/PrimaryCard/Card';
-import Footer from './Footer/Footer';
+import Header from './Components/Header/Header';
+import main_img from './Assets/home_img.png';
+import img_header from './Assets/header_img.jpeg';
+import Card from './Components/Cards/HomePageCard/Card';
+import Footer from './Components/Footer/Footer';
 import './Home.css';
 
 export default function () {
@@ -16,7 +16,7 @@ export default function () {
             <h2>Location de Sauna</h2>
             <div className='description'>
                 <div>
-                    <img src={main_img} className='secondary_img'/>
+                    <img src={main_img} className='section_img'/>
                 </div>
                 <p className='p_description'>
                     La société K&C est fière de vous acceuillir dans ces saunas panoramiques mobiles. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité.

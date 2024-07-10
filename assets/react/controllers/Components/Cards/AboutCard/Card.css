@@ -1,4 +1,4 @@
-.secondary_card {
+.about_card {
     display: flex;
     flex-direction: row;
     height: 20vh;
@@ -6,16 +6,20 @@
     margin-inline: 15vh;
 }
 
-.secondary-card-img {
+.about-card-img {
     height: 100%;
     width: 30%;
 }
 
-.secondary-card-body {
+.about-card-body {
     padding: 3vh;
 }
 
-.secondary-card-btn {
+.about-card-text {
+    margin-bottom: 0;
+}
+
+.about-card-btn {
     justify-self: flex-end;
     align-self: baseline;
 }

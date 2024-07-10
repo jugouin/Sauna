@@ -1,16 +1,16 @@
-.primary-card {
+.homepage-card {
     margin-inline: 5vw;
 }
 
-.primary-card-img {
+.homepage-card-img {
     height: 18vw;
     width: 100%;
 }
 
-.primary-card-body {
+.homepage-card-body {
     padding: 5vh;
 }
 
-.primary-card-btn {
+.homepage-card-btn {
     margin-inline: 3vw;
 }

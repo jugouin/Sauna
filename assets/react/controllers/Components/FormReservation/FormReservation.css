@@ -1,0 +1,82 @@
+.form_reservation {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--third-color);
+    color: var(--forth-color);
+    padding: 5%;
+    margin: 2vw;
+    margin-inline: 10vw;
+}
+
+.form_section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-evenly;
+}
+
+.form_element {
+    box-sizing: border-box;
+    flex: 1 1 50%;
+    padding: 10px 0;
+    margin: auto 0;
+}
+
+.form_element > label {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+    padding: 10px 0;
+    position: relative;
+}
+
+.radio_element > label {
+    flex-direction: row;
+}
+
+.radio_element > label > span {
+    padding: 0;
+    margin-inline: 10px;
+}
+
+textarea {
+    min-height: 70px;
+}
+
+.form_calendar_section {
+    justify-content: space-evenly;
+}
+
+.monthly_calendar, .daily_calendar {
+    width: 47%;
+}
+
+input::placeholder, textarea::placeholder, option {
+    font-size: 14px;
+    color: var(--forth-color);
+}
+
+.form_element > label > input, 
+.form_element > label > textarea, 
+.form_element > label > select {
+    margin: 0;
+    height: 40px;
+    color: var(--secondary-color);
+    background-color: var(--forth-color);
+    border: none;
+    border-radius: 4px;
+}
+
+.form_section > p {
+    color: #7e0c0c;
+    font-weight: 400;
+}
+
+.submit_btn {
+    display: flex;
+    justify-content: flex-end;
+    flex: 50%;
+    flex-basis: 100%;
+    margin-right: 10px;
+
+}

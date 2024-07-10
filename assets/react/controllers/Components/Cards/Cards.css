@@ -18,6 +18,7 @@
 }
 
 .card-text {
-    text-align: justify;
     color: var(--secondary-color);
+    text-align: justify;
+    font-size: var(--small-font-size);
 }

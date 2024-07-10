@@ -1,0 +1,91 @@
+.calendar-wrapper {
+    background-color: var(--forth-color);
+    color: var(--third-color);
+    border-radius: 4px;
+}
+
+.calendar-wrapper .calendar-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px 0px 25px;
+    justify-content: space-between;
+    text-transform: uppercase;
+}
+
+.calendar-header .icons{ 
+border: none;
+cursor: pointer;
+text-wrap: nowrap;
+}
+
+.calendar {
+    padding: 20px;
+    min-height: 400px;
+}
+
+.current-date {
+    text-wrap: nowrap;
+}
+
+.calendar > ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-evenly;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.weeks > li{
+    font-weight: 500;
+    font-size: small;
+    border: 1px solid grey;
+}
+   
+.calendar > ul > li {
+    position: relative;
+    width: calc(100% / 8);
+    background-color: var(--calendar-color);
+}
+
+.days > li {
+    height: 5vh;
+    margin-inline: .5px;
+    z-index: 1;
+    cursor: pointer;
+    margin-top: 10px;
+    border: 1px solid grey;
+}
+
+.calendar .days li, .calendar .weeks li {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.days > li.inactive{
+    color: var(--third-color);
+    filter: opacity(0.3);
+}
+
+.days > li.active{
+    color: var(--accent-color);
+    font-weight: lighter;
+    background-color: var(--primary-color);
+}
+
+.days > li.active::before {
+    border: var(--secondary-color);
+}
+
+.icons {
+    z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+
+    .days > li {
+        margin-top: 15px;
+    }
+}

@@ -34,7 +34,7 @@ section > h2 {
     width: 50%;
 }
 
-.secondary_img {
+.section_img {
     height: 20vw;
     margin-inline: 5vw;
     filter: var(--filter-shadow);

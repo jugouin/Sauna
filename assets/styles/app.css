@@ -1,5 +1,5 @@
 :root {
-    --small-font-size: calc(0.4vw + 0.8em);
+    --small-font-size: 16px;
     --medium-font-size: calc(1.3rem + .7vw);
     --large-font-size: calc(5vw + 0.5rem);
     --primary-color: #B07740;
@@ -7,12 +7,13 @@
     --third-color: #6C442C;
     --forth-color: #DBC096;
     --accent-color: #F5EEDC;
+    --calendar-color: #E8D8BE;
     --filter-shadow: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
@@ -23,6 +24,13 @@ h2 {
     font-size: var(--large-font-size);
 }
 
+h3 {
+    font-weight: 300;
+    font-size: var(--medium-font-size);
+    text-transform: uppercase;
+    justify-self: center;
+}
+
 a {
     color: inherit;
     text-decoration: inherit;
@@ -30,5 +38,11 @@ a {
 
 .main-btn {
     background-color: var(--primary-color);
+    color: var(--secondary-color);
     border-radius: 4px;
+}
+
+.p_description,
+p.privatisation {
+    font-weight: 400;
 }
