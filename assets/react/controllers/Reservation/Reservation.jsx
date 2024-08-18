@@ -25,7 +25,6 @@ export default function () {
                     Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible. Des saunas avec une bulle afin de profiter de la superbe vue qu'offre la plage de Port-Valais.
                     </p>
                 </div>
-                
             </div>
         </section>
         <FormReservation/>

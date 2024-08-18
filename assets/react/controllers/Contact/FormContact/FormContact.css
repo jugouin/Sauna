@@ -1,0 +1,9 @@
+.form_contact {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--third-color);
+    color: var(--forth-color);
+    padding: 5%;
+    margin: 2vw;
+    margin-inline: 10vw;
+}

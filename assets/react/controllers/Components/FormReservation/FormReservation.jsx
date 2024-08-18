@@ -10,13 +10,14 @@ import './FormReservation.css';
 const ReservationForm = ({ evening }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        name: '',
+        surname: '',
         phone: '',
         personNb: '',
         date: '',
         message: '',
-        privatization: ''
+        privatized: '',
+        sauna: 1
     });
 
     const person = [];
@@ -45,7 +46,7 @@ const ReservationForm = ({ evening }) => {
         e.preventDefault();
         console.log(formData);
         axios
-            .post(`/reservation/add`, formData)
+            .post(`/reservation/new`, formData)
             .then((res) => {
                 alert('Merci de votre réservation');
                 window.location = '/';
@@ -66,8 +67,8 @@ const ReservationForm = ({ evening }) => {
                     Nom :
                     <input
                     type="text"
-                    name="lastName"
-                    value={formData.lastName}
+                    name="surname"
+                    value={formData.surname}
                     onChange={handleChange}
                     required
                     />
@@ -78,8 +79,8 @@ const ReservationForm = ({ evening }) => {
                     Prénom :
                     <input
                     type="text"
-                    name="firstName"
-                    value={formData.firstName}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     required
                     />

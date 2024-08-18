@@ -9,13 +9,13 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>FirstName</th>
-                <th>LastName</th>
+                <th>Name</th>
+                <th>Surname</th>
                 <th>Phone</th>
                 <th>PersonNb</th>
                 <th>Date</th>
                 <th>Message</th>
-                <th>Privatization</th>
+                <th>Privatisation</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,13 +23,13 @@
         {% for reservation in reservations %}
             <tr>
                 <td>{{ reservation.id }}</td>
-                <td>{{ reservation.firstName }}</td>
-                <td>{{ reservation.lastName }}</td>
+                <td>{{ reservation.name }}</td>
+                <td>{{ reservation.surname }}</td>
                 <td>{{ reservation.phone }}</td>
                 <td>{{ reservation.personNb }}</td>
                 <td>{{ reservation.date ? reservation.date|date('Y-m-d') : '' }}</td>
-                <td>{{ reservation.message }}</td>
-                <td>{{ reservation.privatization ? 'Yes' : 'No' }}</td>
+                <td>{{ reservation.remarks }}</td>
+                <td>{{ reservation.privatized ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
                     <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>

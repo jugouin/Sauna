@@ -2,65 +2,83 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservationRepository;
-use Doctrine\DBAL\Types\Types;
+use App\Traits\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ReservationRepository::class)]
-class Reservation
-{
+#[ORM\Entity()]
+class Reservation {
+    use TimestampTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\Column(length: 50)]
-    private ?string $firstName = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
 
-    #[ORM\Column(length: 50)]
-    private ?string $lastName = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $surname;
 
-    #[ORM\Column(length: 50)]
-    private ?string $phone = null;
+    #[ORM\Column(type: 'string', length: 20)]
+    private $phone;
 
-    #[ORM\Column]
-    private ?int $personNb = null;
+    #[ORM\Column(type: 'integer')]
+    private $personNb;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(type: 'date')]
+    private $date;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $message = null;
+    #[ORM\Column(type: 'time')]
+    private $startTime;
 
-    #[ORM\Column]
-    private ?bool $privatization = null;
+    #[ORM\Column(type: 'boolean')]
+    private $privatized;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $remarks;
+
+    #[ORM\ManyToOne(targetEntity: SmallSauna::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $sauna;
+
+    public function __construct($name, $surname, $phone, $personNb, $date, $startTime, $privatized, $remarks, $sauna) {
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->phone = $phone;
+        $this->personNb = $personNb;
+        $this->date = $date;
+        $this->startTime = $startTime;
+        $this->privatized = $privatized;
+        $this->remarks = $remarks;
+        $this->sauna = $sauna;
+        $this->setTimestamps();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getName(): ?string
     {
-        return $this->firstName;
+        return $this->name;
     }
 
-    public function setFirstName(string $firstName): static
+    public function setName(string $name): self
     {
-        $this->firstName = $firstName;
-
+        $this->name = $name;
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getSurname(): ?string
     {
-        return $this->lastName;
+        return $this->surname;
     }
 
-    public function setLastName(string $lastName): static
+    public function setSurname(string $surname): self
     {
-        $this->lastName = $lastName;
-
+        $this->surname = $surname;
         return $this;
     }
 
@@ -69,10 +87,9 @@ class Reservation
         return $this->phone;
     }
 
-    public function setPhone(string $phone): static
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -81,10 +98,9 @@ class Reservation
         return $this->personNb;
     }
 
-    public function setPersonNb(int $personNb): static
+    public function setPersonNb(int $personNb): self
     {
         $this->personNb = $personNb;
-
         return $this;
     }
 
@@ -93,34 +109,53 @@ class Reservation
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
         return $this;
     }
 
-    public function getMessage(): ?string
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->message;
+        return $this->startTime;
     }
 
-    public function setMessage(?string $message): static
+    public function setStartTime(\DateTimeInterface $startTime): self
     {
-        $this->message = $message;
-
+        $this->startTime = $startTime;
         return $this;
     }
 
-    public function isPrivatization(): ?bool
+    public function isPrivatized(): ?bool
     {
-        return $this->privatization;
+        return $this->privatized;
     }
 
-    public function setPrivatization(bool $privatization): static
+    public function setPrivatized(bool $privatized): self
     {
-        $this->privatization = $privatization;
+        $this->privatized = $privatized;
+        return $this;
+    }
 
+    public function getRemarks(): ?string
+    {
+        return $this->remarks;
+    }
+
+    public function setRemarks(?string $remarks): self
+    {
+        $this->remarks = $remarks;
+        return $this;
+    }
+
+    public function getSauna(): ?SmallSauna
+    {
+        return $this->sauna;
+    }
+
+    public function setSauna(SmallSauna $sauna): self
+    {
+        $this->sauna = $sauna;
         return $this;
     }
 }

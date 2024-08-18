@@ -1,0 +1,17 @@
+.header_contact_img {
+    height: 50vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.header_contact_img img {
+    height: calc(100% + 100px);
+    object-fit: cover;
+    position: absolute;
+    top: -10vh;
+}
+
+.contact_section {
+    padding: 0;
+    margin-top: 10vh
+}
