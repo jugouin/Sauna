@@ -1,58 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DailyCalendar.css";
 
-export default function Calendar() {
+export default function DailyCalendar({ reservations, date, handleTimeSelection }) {
+    const [selectedTime, setSelectedTime] = useState(null);
 
-  return (
-    <div className="daily-calendar-wrapper">
-        <ul className="daily-calendar">
-            <li className="calendar-hour">Heure</li>
-            <li className="calendar-dispo">Disponibilité</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">10h00</li>
-            <li className="calendar-dispo">2 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">11h00</li>
-            <li className="calendar-dispo">3 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">12h00</li>
-            <li className="calendar-dispo">6 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">13h00</li>
-            <li className="calendar-dispo">3 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">14h00</li>
-            <li className="calendar-dispo">8 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">15h00</li>
-            <li className="calendar-dispo">3 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">16h00</li>
-            <li className="calendar-dispo">6 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">17h00</li>
-            <li className="calendar-dispo">3 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">18h00</li>
-            <li className="calendar-dispo">8 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">19h00</li>
-            <li className="calendar-dispo">3 places</li>
-        </ul>
-        <ul className="daily-calendar">
-            <li className="calendar-hour">20h00</li>
-            <li className="calendar-dispo">8 places</li>
-        </ul>
-    </div>
-  );
+    const formatTime = (time) => {
+        const date = new Date(time);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
+
+    const formattedDate = date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+
+    const availableHours = () => {
+        const hours = [];
+        for (let hour = 10; hour <= 20; hour++) {
+            hours.push(`${hour.toString().padStart(2, '0')}:00`);
+        }
+        return hours;
+    };
+
+    const reservedHours = new Set(reservations.map(reservation => formatTime(reservation.startTime)));
+    const hours = availableHours();
+
+    return (
+        <div className="daily-calendar-wrapper">
+            <h4>{formattedDate}</h4>
+            {hours.map(hour => {
+                const isReserved = reservedHours.has(hour);
+                return (
+                    <ul key={hour} className="daily-calendar">
+                        <li className="calendar-hour" onClick={() => !isReserved && handleTimeSelection(hour)}>
+                            {hour}
+                        </li>
+                        <li className="calendar-dispo">
+                            {isReserved
+                                ? `${6 - reservations.find(reservation => formatTime(reservation.startTime) === hour).personNb} place(s) disponible(s)`
+                                : "6 places disponibles"}
+                        </li>
+                    </ul>
+                );
+            })}
+        </div>
+    );
 }

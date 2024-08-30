@@ -3,5 +3,5 @@
 {% block title %}Réservation{% endblock %}
 
 {% block body %}
-    <div {{ react_component('Reservation/Reservation') }}></div>
+    <div {{ react_component('Reservation/Reservation' , {'reservations': reservations_json }) }}></div>
 {% endblock %}

@@ -8,6 +8,8 @@ use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,10 +19,19 @@ use App\Entity\SmallSauna;
 class ReservationController extends AbstractController
 {
     #[Route('/index', name: 'app_reservation_index', methods: ['GET'])]
-    public function index(ReservationRepository $reservationRepository): Response
+    public function index(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
     {
+        $reservations_data = $reservationRepository->findAll();
+
+        $context = (new ObjectNormalizerContextBuilder())
+            ->withGroups('reservation')
+            ->toArray();
+
+        $reservations_json = $serializer->serialize($reservations_data, 'json', $context);
+
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservationRepository->findAll(),
+            'reservations_json' => $reservations_json,
         ]);
     }
 

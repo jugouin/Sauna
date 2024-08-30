@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ReactController extends AbstractController
 {
@@ -15,9 +18,19 @@ class ReactController extends AbstractController
     }
 
     #[Route('/reservation', name: 'reservation')]
-    public function reservation(): Response
+    public function reservation(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
     {
-        return $this->render('reservation/new.html.twig');
+        $reservations_data = $reservationRepository->findAll();
+
+        $context = (new ObjectNormalizerContextBuilder())
+            ->withGroups('reservation')
+            ->toArray();
+
+        $reservations_json = $serializer->serialize($reservations_data, 'json', $context);
+
+        return $this->render('reservation/new.html.twig', [
+            'reservations_json' => $reservations_json,
+        ]);
     }
 
     #[Route('/about', name: 'about')]

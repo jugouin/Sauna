@@ -9,6 +9,15 @@
     overflow-y: auto;
     flex-direction: column;
     justify-content: space-around;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.daily-calendar-wrapper > h4:first-child{
+    display: flex;
+    justify-content: center;
+    padding-inline: 2%;
+    margin-top: -10px;
 }
 
 .daily-calendar {

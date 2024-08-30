@@ -47,9 +47,6 @@ textarea {
     justify-content: space-evenly;
 }
 
-.monthly_calendar, .daily_calendar {
-    width: 47%;
-}
 
 input::placeholder, textarea::placeholder, option {
     font-size: 14px;

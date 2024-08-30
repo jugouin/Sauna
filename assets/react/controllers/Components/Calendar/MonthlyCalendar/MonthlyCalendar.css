@@ -1,7 +1,17 @@
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
 .calendar-wrapper {
     background-color: var(--forth-color);
     color: var(--third-color);
     border-radius: 4px;
+    flex: 1;
+    max-width: 50%;
 }
 
 .calendar-wrapper .calendar-header {
@@ -69,9 +79,23 @@ text-wrap: nowrap;
     filter: opacity(0.3);
 }
 
-.days > li.active{
-    color: var(--accent-color);
+
+
+.days > li.selectable{
+    color: var(--third-color);
     font-weight: lighter;
+    background-color: var(--accent-color);
+}
+
+.days > li.selected{
+    color: var(--calendar-color);
+    font-weight: lighter;
+    background-color: var(--secondary-color);
+}
+
+.days > li.active{
+    color: var(--third-color);
+    font-weight: bolder;
     background-color: var(--primary-color);
 }
 
