@@ -6,6 +6,7 @@ use App\Entity\Calendar;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
@@ -13,7 +14,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\SmallSauna;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -35,29 +35,37 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/test', name: 'app_reservation_test', methods: ['POST'])]
+    public function test(Request $request): Response
+{
+    $data = $request->getContent();
+  
+    $form = $this->createForm(ReservationType::class, $data);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Inspecter les données du formulaire
+        dump($form->getData());
+        dump($form->get('startTime')->getData());
+
+        // Sauvegarder la réservation...
+    }
+
+    return $this->render('reservation/new.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+
+    #[Route('/new', name: 'app_reservation_new', methods: ['POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
-        $smallSauna = new SmallSauna('Location 1', 'Small Sauna');
-        $entityManager->persist($smallSauna);
-
-        $date1 = new \DateTime('2024-07-15');
-        $startTime1 = new \DateTime('10:00:00');
-        $reservation = new Reservation('John', 'Doe', '123456789', 3, $date1, $startTime1, false, 'No remarks', $smallSauna);
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($reservation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('reservation/new.html.twig', [
-            'reservation' => $reservation,
-            'form' => $form,
-        ]);
+        $data = $request->getContent();
+        $newReservation = $serializer->deserialize($data, Reservation::class, 'json');
+        
+        $entityManager->persist($newReservation);
+        $entityManager->flush();
+ 
+        return new Response();
     }
 
     #[Route('/show/{id}', name: 'app_reservation_show', methods: ['GET'])]

@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
-export default function Calendar({ onDateChange, onTimeChange,reservations }) {
+export default function Calendar({ onDateChange, onTimeChange, reservations }) {
+
+  console.log(reservations)
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -15,14 +17,19 @@ export default function Calendar({ onDateChange, onTimeChange,reservations }) {
   ];
 
   const isDaySelectable = (date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (date < today) {
+      return false;
+    }
+
     const dailyReservations = getReservationsForDate(date);
-    const reservedHours = new Set(dailyReservations.map(reservation => {
-      const time = new Date(reservation.startTime);
-      return time.getHours();
-    }));
+    const reservedHours = new Set(dailyReservations.map(reservation => reservation.startTime));
   
     for (let hour = 10; hour <= 20; hour++) {
-      if (!reservedHours.has(hour)) {
+      const formattedHour = hour.toString().padStart(2, '0') + ":00";
+      if (!reservedHours.has(formattedHour)) {
         return true;
       }
     }
@@ -53,9 +60,9 @@ export default function Calendar({ onDateChange, onTimeChange,reservations }) {
 
   const renderDays = () => {
   const date = new Date();
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 0).getDay();
   const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const lastDayOfMonth = new Date(currentYear, currentMonth, lastDateOfMonth).getDay();
+  const lastDayOfMonth = new Date(currentYear, currentMonth, lastDateOfMonth -1).getDay();
   const lastDateOfLastMonth = new Date(currentYear, currentMonth, 0).getDate();
 
   const days = [];

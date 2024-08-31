@@ -88,15 +88,14 @@ text-wrap: nowrap;
 }
 
 .days > li.selected{
-    color: var(--calendar-color);
+    color: var(--third-color);
     font-weight: lighter;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .days > li.active{
-    color: var(--third-color);
-    font-weight: bolder;
-    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-weight: 900;
 }
 
 .days > li.active::before {

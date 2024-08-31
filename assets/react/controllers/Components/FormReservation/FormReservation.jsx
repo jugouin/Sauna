@@ -14,8 +14,7 @@ const ReservationForm = ({ reservations }) => {
         date: '',
         startTime: '',
         privatized: false,
-        remarks: '',
-        sauna: 1
+        remarks: ''
     });
 
     const handleChange = (e) => {
@@ -42,16 +41,27 @@ const ReservationForm = ({ reservations }) => {
 
     const submitForm = async (e) => {
         e.preventDefault();
-        console.log(formData);
-        try {
-            await axios.post(`/reservation/new`, formData);
-            alert('Merci de votre réservation');
-            window.location = '/';
-        } catch (err) {
-            console.error(err);
-            alert('Une erreur est survenue, veuillez réessayer.');
-        }
+     
+        const formDataWithNumber = {
+            ...formData,
+            personNb: Number(formData.personNb)
+        };
+        axios
+            .post('/reservation/new', formDataWithNumber, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then((res) => {
+                alert('Merci de votre réservation');
+                window.location = '/';
+            })
+            .catch((err) => {
+                console.error(err);
+                alert('Une erreur est survenue, veuillez réessayer.');
+            });
     };
+    
 
     return (
         <form onSubmit={submitForm} className='form_reservation'>
@@ -81,7 +91,8 @@ const ReservationForm = ({ reservations }) => {
                             name="personNb"
                             value={formData.personNb}
                             onChange={handleChange}
-                            required>
+                            required
+                            type="number">
                             <option value="">--</option>
                             {[...Array(10)].map((_, i) => (
                                 <option key={i + 1} value={i + 1}>{i + 1}</option>

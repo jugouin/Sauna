@@ -4,12 +4,11 @@ import "./DailyCalendar.css";
 export default function DailyCalendar({ reservations, date, handleTimeSelection }) {
     const [selectedTime, setSelectedTime] = useState(null);
 
-    const formatTime = (time) => {
-        const date = new Date(time);
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    };
-
-    const formattedDate = date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+    const formattedDate = date.toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+    });
 
     const availableHours = () => {
         const hours = [];
@@ -19,27 +18,36 @@ export default function DailyCalendar({ reservations, date, handleTimeSelection 
         return hours;
     };
 
-    const reservedHours = new Set(reservations.map(reservation => formatTime(reservation.startTime)));
+    const reservedHours = new Set(reservations.map(reservation => reservation.startTime));
     const hours = availableHours();
+
+    const handleTimeClick = (hour) => {
+        if (!reservedHours.has(hour)) {
+            setSelectedTime(hour);
+            handleTimeSelection(hour);
+        }
+    };
+
+    const getAvailabilityText = (hour) => {
+        const reservation = reservations.find(res => res.startTime === hour);
+        return reservation
+            ? `${6 - reservation.personNb} place(s) disponible(s)`
+            : "6 places disponibles";
+    };
 
     return (
         <div className="daily-calendar-wrapper">
             <h4>{formattedDate}</h4>
-            {hours.map(hour => {
-                const isReserved = reservedHours.has(hour);
-                return (
-                    <ul key={hour} className="daily-calendar">
-                        <li className="calendar-hour" onClick={() => !isReserved && handleTimeSelection(hour)}>
-                            {hour}
-                        </li>
-                        <li className="calendar-dispo">
-                            {isReserved
-                                ? `${6 - reservations.find(reservation => formatTime(reservation.startTime) === hour).personNb} place(s) disponible(s)`
-                                : "6 places disponibles"}
-                        </li>
-                    </ul>
-                );
-            })}
+            {hours.map(hour => (
+                <ul key={hour} className="daily-calendar" onClick={() => handleTimeClick(hour)}>
+                    <li className={`calendar-hour ${selectedTime === hour ? 'selected' : ''}`}>
+                        {hour}
+                    </li>
+                    <li className={`calendar-dispo ${selectedTime === hour ? 'selected' : ''}`}>
+                        {getAvailabilityText(hour)}
+                    </li>
+                </ul>
+            ))}
         </div>
     );
 }

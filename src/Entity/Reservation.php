@@ -19,44 +19,39 @@ class Reservation {
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(name: 'surname', type: 'string', length: 255)]
     private $surname;
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(name: 'phone', type: 'string', length: 20)]
     private $phone;
 
-    #[ORM\Column(type: 'integer')]
-    private $personNb;
-
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(name: 'date', type: 'date')]
     private $date;
 
-    #[ORM\Column(type: 'time')]
+    #[ORM\Column(name: 'startTime',type: 'string', length: 20)]
     private $startTime;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(name: 'privatized', type: 'boolean')]
     private $privatized;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(name: 'remarks', type: 'string', length: 255, nullable: true)]
     private $remarks;
 
-    #[ORM\ManyToOne(targetEntity: SmallSauna::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $sauna;
+    #[ORM\Column(name: 'personNb', type: 'integer')]
+    private $personNb;
 
-    public function __construct($name, $surname, $phone, $personNb, $date, $startTime, $privatized, $remarks, $sauna) {
+    public function __construct($name, $surname, $phone, $date, $startTime, $privatized, $remarks, $personNb) {
         $this->name = $name;
         $this->surname = $surname;
         $this->phone = $phone;
-        $this->personNb = $personNb;
         $this->date = $date;
         $this->startTime = $startTime;
         $this->privatized = $privatized;
         $this->remarks = $remarks;
-        $this->sauna = $sauna;
+        $this->personNb = $personNb;
         $this->setTimestamps();
     }
 
@@ -98,17 +93,6 @@ class Reservation {
         return $this;
     }
 
-    public function getPersonNb(): ?int
-    {
-        return $this->personNb;
-    }
-
-    public function setPersonNb(int $personNb): self
-    {
-        $this->personNb = $personNb;
-        return $this;
-    }
-
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -120,12 +104,12 @@ class Reservation {
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
+    public function getStartTime(): ?string
     {
         return $this->startTime;
     }
 
-    public function setStartTime(\DateTimeInterface $startTime): self
+    public function setStartTime(string $startTime): self
     {
         $this->startTime = $startTime;
         return $this;
@@ -153,14 +137,14 @@ class Reservation {
         return $this;
     }
 
-    public function getSauna(): ?SmallSauna
+    public function getPersonNb(): ?int
     {
-        return $this->sauna;
+        return $this->personNb;
     }
 
-    public function setSauna(SmallSauna $sauna): self
+    public function setPersonNb(int $personNb): self
     {
-        $this->sauna = $sauna;
+        $this->personNb = $personNb;
         return $this;
     }
 }
