@@ -1,0 +1,96 @@
+.admin-calendar-container {
+    width: 60%;
+    max-width: 1200px;
+    margin: 0 auto 5%;
+    padding: 2%;
+    border-radius: 5px;
+    background-color: var(--forth-color);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    text-transform: uppercase;
+}
+
+.calendar-title {
+    font-size: var(--medium-font-size);
+}
+
+.nav-button {
+    background-color: var(--secondary-color);
+    color: var(--forth-color);
+    border: none;
+    padding: 10px 15px;
+    margin: 0 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--small-font-size);
+    border: 1px solid var(--grey-color);
+    border-collapse: collapse;
+}
+
+.calendar-grid-header {
+    display: flex;
+
+}
+
+.time-slot-header {
+    width: 60px;
+    border-right: 1px solid var(--grey-color);
+    box-sizing: border-box;
+}
+
+.day-header {
+    flex: 1;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px 0;
+    border-right: 1px solid var(--grey-color);
+    position: relative;
+}
+
+.date-number {
+    color: var(--grey-color);
+    margin-top: 5px;
+}
+
+.calendar-grid-body {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.time-row {
+    display: flex;
+    border-top: 1px solid var(--grey-color);
+    box-sizing: border-box;
+}
+
+.time-slot {
+    width: 60px;
+    text-align: center;
+    padding: 10px 0;
+    border-right: 1px solid var(--grey-color);
+    box-sizing: border-box;
+}
+
+.calendar-cell {
+    flex: 1;
+    border-right: 1px solid var(--grey-color);
+    padding: 10px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.booked {
+    background-color: var(--secondary-color);
+}

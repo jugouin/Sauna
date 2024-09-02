@@ -18,21 +18,28 @@ export default function DailyCalendar({ reservations, date, handleTimeSelection 
         return hours;
     };
 
-    const reservedHours = new Set(reservations.map(reservation => reservation.startTime));
+    const totalPlaces = 10;
+
+    const reservationsByHour = reservations.reduce((acc, reservation) => {
+        acc[reservation.startTime] = (acc[reservation.startTime] || 0) + reservation.personNb;
+        return acc;
+    }, {});
+
     const hours = availableHours();
 
     const handleTimeClick = (hour) => {
-        if (!reservedHours.has(hour)) {
+        if (!(reservationsByHour[hour] >= totalPlaces)) {
             setSelectedTime(hour);
             handleTimeSelection(hour);
         }
     };
 
     const getAvailabilityText = (hour) => {
-        const reservation = reservations.find(res => res.startTime === hour);
-        return reservation
-            ? `${6 - reservation.personNb} place(s) disponible(s)`
-            : "6 places disponibles";
+        const reserved = reservationsByHour[hour] || 0;
+        const available = totalPlaces - reserved;
+        return available > 0
+            ? `${available} place(s) disponible(s)`
+            : "Complet";
     };
 
     return (

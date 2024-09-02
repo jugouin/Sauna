@@ -3,8 +3,6 @@ import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
 export default function Calendar({ onDateChange, onTimeChange, reservations }) {
-
-  console.log(reservations)
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -16,17 +14,22 @@ export default function Calendar({ onDateChange, onTimeChange, reservations }) {
     "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
   ];
 
+  //Vérifie s'il reste des dispo pour rendre un jour "selectable"
   const isDaySelectable = (date) => {
+
+    //Controle qu'on ne puisse pas réserver de jour avant aujourd'hui
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
+    today.setUTCHours(0, 0, 0, 0);
     if (date < today) {
       return false;
     }
 
+    // Compile toute les réservations faites à une date pour voir s'il reste de la place
     const dailyReservations = getReservationsForDate(date);
     const reservedHours = new Set(dailyReservations.map(reservation => reservation.startTime));
   
+  
+    //Affiche seulement les heures disponibles
     for (let hour = 10; hour <= 20; hour++) {
       const formattedHour = hour.toString().padStart(2, '0') + ":00";
       if (!reservedHours.has(formattedHour)) {
@@ -35,7 +38,6 @@ export default function Calendar({ onDateChange, onTimeChange, reservations }) {
     }
     return false;
   };
-  
   
   const getReservationsForDate = (date) => {
     return reservations.filter(event => new Date(event.date).toDateString() === date.toDateString());
@@ -47,8 +49,9 @@ export default function Calendar({ onDateChange, onTimeChange, reservations }) {
     if (selectedTime) {
         onTimeChange(selectedTime);
     }
-};
+  };
 
+  //Retourne le calendrier des heures d'un jour selectionné avec les réservations associées ou par défaut du jour actuel
   const renderDailyCalendar = () => {
     const dateToDisplay = selectedDate || new Date();
     const dailyReservations = getReservationsForDate(dateToDisplay);

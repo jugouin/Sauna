@@ -20,13 +20,7 @@ class ReactController extends AbstractController
     #[Route('/reservation', name: 'reservation')]
     public function reservation(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
     {
-        $reservations_data = $reservationRepository->findAll();
-
-        $context = (new ObjectNormalizerContextBuilder())
-            ->withGroups('reservation')
-            ->toArray();
-
-        $reservations_json = $serializer->serialize($reservations_data, 'json', $context);
+        $reservations_json = $this->getReservationsJson($reservationRepository, $serializer);
 
         return $this->render('reservation/new.html.twig', [
             'reservations_json' => $reservations_json,
@@ -43,5 +37,32 @@ class ReactController extends AbstractController
     public function contact(): Response
     {
         return $this->render('Pages/contact.html.twig');
+    }
+
+    #[Route('/admin', name: 'admin')]
+    public function admin(): Response
+    {
+        return $this->render('Pages/admin.html.twig');
+    }
+
+    #[Route('/homepageAdmin', name: 'homepageAdmin')]
+    public function homepageAdmin(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
+    {
+        $reservations_json = $this->getReservationsJson($reservationRepository, $serializer);
+
+        return $this->render('Pages/homepageAdmin.html.twig', [
+            'reservations_json' => $reservations_json,
+        ]);
+    }
+
+    private function getReservationsJson(ReservationRepository $reservationRepository, SerializerInterface $serializer): string
+    {
+        $reservations_data = $reservationRepository->findAll();
+
+        $context = (new ObjectNormalizerContextBuilder())
+            ->withGroups('reservation')
+            ->toArray();
+
+        return $serializer->serialize($reservations_data, 'json', $context);
     }
 }

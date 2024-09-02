@@ -17,7 +17,7 @@ export default function () {
                 <p>Mentions Légales</p>
             </div>
             <div>
-                <span className="material-symbols-outlined">person</span>
+                <span className="material-symbols-outlined"><a href="/admin">person</a></span>
             </div>
         </div>
     </div>

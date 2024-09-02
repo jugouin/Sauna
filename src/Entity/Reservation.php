@@ -28,7 +28,7 @@ class Reservation {
     #[ORM\Column(name: 'phone', type: 'string', length: 20)]
     private $phone;
 
-    #[ORM\Column(name: 'date', type: 'date')]
+    #[ORM\Column(name: 'date', type: 'datetime')]
     private $date;
 
     #[ORM\Column(name: 'startTime',type: 'string', length: 20)]

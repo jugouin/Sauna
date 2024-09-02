@@ -1,3 +1,9 @@
+//Probleme de selection de jour et d'enregistremeent en BBD 
+// Correction, possibilite plusieurs reservations un meme jour
+// A voir pour Regrouper date et time sur un seul champ 
+// Limitation à 10 personnes 
+
+
 import React, { useState } from 'react';
 import { Checkbox } from '@mui/material';
 import { orange } from '@mui/material/colors';
@@ -11,7 +17,7 @@ const ReservationForm = ({ reservations }) => {
         surname: '',
         phone: '',
         personNb: '',
-        date: '',
+        date: new Date(),
         startTime: '',
         privatized: false,
         remarks: ''
@@ -26,11 +32,13 @@ const ReservationForm = ({ reservations }) => {
     };
 
     const handleDateChange = (date) => {
+    
         setFormData(prev => ({
             ...prev,
-            date: new Date(date).toISOString().split('T')[0]
+            date: date
         }));
     };
+    
 
     const handleTimeChange = (time) => {
         setFormData(prev => ({

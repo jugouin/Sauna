@@ -6,7 +6,6 @@ use App\Entity\Calendar;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
@@ -21,6 +20,7 @@ class ReservationController extends AbstractController
     #[Route('/index', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
     {
+      
         $reservations_data = $reservationRepository->findAll();
 
         $context = (new ObjectNormalizerContextBuilder())
@@ -30,31 +30,9 @@ class ReservationController extends AbstractController
         $reservations_json = $serializer->serialize($reservations_data, 'json', $context);
 
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
             'reservations_json' => $reservations_json,
         ]);
     }
-
-    #[Route('/test', name: 'app_reservation_test', methods: ['POST'])]
-    public function test(Request $request): Response
-{
-    $data = $request->getContent();
-  
-    $form = $this->createForm(ReservationType::class, $data);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Inspecter les données du formulaire
-        dump($form->getData());
-        dump($form->get('startTime')->getData());
-
-        // Sauvegarder la réservation...
-    }
-
-    return $this->render('reservation/new.html.twig', [
-        'form' => $form->createView(),
-    ]);
-}
 
     #[Route('/new', name: 'app_reservation_new', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response

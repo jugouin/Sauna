@@ -4,6 +4,7 @@ import main_img from '../Assets/home_img.png';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 import FormReservation from '../Components/FormReservation/FormReservation';
+//import FormReservation from '../Components/FormReservation/TestFormReservation';
 import "./Reservation.css";
 
 export default function (props) {
