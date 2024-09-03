@@ -31,9 +31,6 @@ class Reservation {
     #[ORM\Column(name: 'date', type: 'datetime')]
     private $date;
 
-    #[ORM\Column(name: 'startTime',type: 'string', length: 20)]
-    private $startTime;
-
     #[ORM\Column(name: 'privatized', type: 'boolean')]
     private $privatized;
 
@@ -43,12 +40,11 @@ class Reservation {
     #[ORM\Column(name: 'personNb', type: 'integer')]
     private $personNb;
 
-    public function __construct($name, $surname, $phone, $date, $startTime, $privatized, $remarks, $personNb) {
+    public function __construct($name, $surname, $phone, $date, $privatized, $remarks, $personNb) {
         $this->name = $name;
         $this->surname = $surname;
         $this->phone = $phone;
         $this->date = $date;
-        $this->startTime = $startTime;
         $this->privatized = $privatized;
         $this->remarks = $remarks;
         $this->personNb = $personNb;
@@ -101,17 +97,6 @@ class Reservation {
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-        return $this;
-    }
-
-    public function getStartTime(): ?string
-    {
-        return $this->startTime;
-    }
-
-    public function setStartTime(string $startTime): self
-    {
-        $this->startTime = $startTime;
         return $this;
     }
 

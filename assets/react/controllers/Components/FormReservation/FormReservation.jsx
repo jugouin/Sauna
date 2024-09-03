@@ -16,18 +16,17 @@ const ReservationForm = ({ reservations }) => {
         name: '',
         surname: '',
         phone: '',
-        personNb: '',
-        date: new Date(),
-        startTime: '',
+        date: '',
         privatized: false,
-        remarks: ''
+        remarks: '',
+        personNb: 0
     });
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: type === 'checkbox' ? checked : name === 'personNb' ? parseInt(value, 10) : value
         }));
     };
 
@@ -38,24 +37,12 @@ const ReservationForm = ({ reservations }) => {
             date: date
         }));
     };
-    
-
-    const handleTimeChange = (time) => {
-        setFormData(prev => ({
-            ...prev,
-            startTime: time
-        }));
-    };
 
     const submitForm = async (e) => {
         e.preventDefault();
      
-        const formDataWithNumber = {
-            ...formData,
-            personNb: Number(formData.personNb)
-        };
         axios
-            .post('/reservation/new', formDataWithNumber, {
+            .post('/reservation/new', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -69,7 +56,6 @@ const ReservationForm = ({ reservations }) => {
                 alert('Une erreur est survenue, veuillez réessayer.');
             });
     };
-    
 
     return (
         <form onSubmit={submitForm} className='form_reservation'>
@@ -128,7 +114,7 @@ const ReservationForm = ({ reservations }) => {
             </div>
             <div className='form_section form_calendar_section'>
                 <div className='monthly_calendar'>
-                    <MonthlyCalendar onDateChange={handleDateChange} onTimeChange={handleTimeChange} reservations={reservations} />
+                    <MonthlyCalendar onDateChange={handleDateChange} reservations={reservations} />
                 </div>
             </div>
             <div className='form_section'>

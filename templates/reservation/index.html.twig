@@ -16,7 +16,6 @@
                 <th>Phone</th>
                 <th>PersonNb</th>
                 <th>Date</th>
-                <th>Time</th>
                 <th>Message</th>
                 <th>Privatisation</th>
                 <th>actions</th>
@@ -31,7 +30,6 @@
                 <td>{{ reservation.phone }}</td>
                 <td>{{ reservation.personNb }}</td>
                 <td>{{ reservation.date ? reservation.date|date('Y-m-d') : '' }}</td>
-                <td>{{ reservation.startTime }}</td>
                 <td>{{ reservation.remarks }}</td>
                 <td>{{ reservation.privatized ? 'Yes' : 'No' }}</td>
                 <td>

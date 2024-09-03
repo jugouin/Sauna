@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -32,10 +31,6 @@ class ReservationType extends AbstractType
             'widget' => 'single_text',
             'label' => 'Date de réservation'
         ])
-        ->add('startTime', TextType::class, [
-            'label' => 'Heure de réservation'
-        ])
-        
         ->add('privatized', CheckboxType::class, [
             'label' => 'privatized',
             'required' => false,

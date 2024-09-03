@@ -1,14 +1,14 @@
 import React, { useState } from "react";
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import "./DailyCalendar.css";
 
-export default function DailyCalendar({ reservations, date, handleTimeSelection }) {
-    const [selectedTime, setSelectedTime] = useState(null);
+export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime }) {
 
-    const formattedDate = date.toLocaleDateString('fr-FR', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-    });
+    const [selectedTime, setSelectedTime] = useState(null);
+    console.log(dateToDisplay);
+
+    const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
 
     const availableHours = () => {
         const hours = [];
@@ -21,16 +21,17 @@ export default function DailyCalendar({ reservations, date, handleTimeSelection 
     const totalPlaces = 10;
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
-        acc[reservation.startTime] = (acc[reservation.startTime] || 0) + reservation.personNb;
+        const hour = new Date(reservation.date).toISOString().substring(11, 16);
+        acc[hour] = (acc[hour] || 0) + reservation.personNb;
         return acc;
     }, {});
 
     const hours = availableHours();
 
     const handleTimeClick = (hour) => {
-        if (!(reservationsByHour[hour] >= totalPlaces)) {
+        if (!(reservationsByHour[hour] > totalPlaces)) {
             setSelectedTime(hour);
-            handleTimeSelection(hour);
+            onChangeTime(hour);
         }
     };
 
@@ -38,13 +39,13 @@ export default function DailyCalendar({ reservations, date, handleTimeSelection 
         const reserved = reservationsByHour[hour] || 0;
         const available = totalPlaces - reserved;
         return available > 0
-            ? `${available} place(s) disponible(s)`
+            ? `${available} place${available > 1 ? 's' : ''} disponible${available > 1 ? 's' : ''}`
             : "Complet";
     };
 
     return (
         <div className="daily-calendar-wrapper">
-            <h4>{formattedDate}</h4>
+            <h4 className="calendar-header">{formattedDate}</h4>
             {hours.map(hour => (
                 <ul key={hour} className="daily-calendar" onClick={() => handleTimeClick(hour)}>
                     <li className={`calendar-hour ${selectedTime === hour ? 'selected' : ''}`}>

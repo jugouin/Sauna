@@ -1,63 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
+import { format, formatISO, setHours, setMinutes } from 'date-fns';
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
-export default function Calendar({ onDateChange, onTimeChange, reservations }) {
+export default function Calendar({ onDateChange, reservations }) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+
   const currentDateRef = useRef(null);
+  const stringHour = selectedTime || "12:30"
 
   const months = [
     "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
     "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
   ];
 
-  //Vérifie s'il reste des dispo pour rendre un jour "selectable"
-  const isDaySelectable = (date) => {
-
-    //Controle qu'on ne puisse pas réserver de jour avant aujourd'hui
-    const today = new Date();
-    today.setUTCHours(0, 0, 0, 0);
-    if (date < today) {
-      return false;
-    }
-
-    // Compile toute les réservations faites à une date pour voir s'il reste de la place
-    const dailyReservations = getReservationsForDate(date);
-    const reservedHours = new Set(dailyReservations.map(reservation => reservation.startTime));
-  
-  
-    //Affiche seulement les heures disponibles
-    for (let hour = 10; hour <= 20; hour++) {
-      const formattedHour = hour.toString().padStart(2, '0') + ":00";
-      if (!reservedHours.has(formattedHour)) {
-        return true;
-      }
-    }
-    return false;
-  };
-  
   const getReservationsForDate = (date) => {
-    return reservations.filter(event => new Date(event.date).toDateString() === date.toDateString());
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    return reservations.filter(reservation => 
+      format(new Date(reservation.date), 'yyyy-MM-dd') === formattedDate
+    );
   };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    onDateChange(date);
-    if (selectedTime) {
-        onTimeChange(selectedTime);
+    handleTimeChange(date, selectedTime);
+  };
+  
+  const handleTimeChange = (date, time) => {
+    if (date && time) {
+      const [hours, minutes] = time.split(':').map(Number);
+      const reservationDate = setMinutes(setHours(date, hours), minutes);
+      const newDateTimeISO = formatISO(reservationDate);
+      onDateChange(newDateTimeISO);
     }
   };
 
-  //Retourne le calendrier des heures d'un jour selectionné avec les réservations associées ou par défaut du jour actuel
   const renderDailyCalendar = () => {
     const dateToDisplay = selectedDate || new Date();
     const dailyReservations = getReservationsForDate(dateToDisplay);
 
     return (
-      <DailyCalendar reservations={dailyReservations} date={dateToDisplay} handleTimeSelection={onTimeChange}/>
+      <DailyCalendar 
+        onChangeTime={(time) => handleTimeChange(dateToDisplay, time)} 
+        reservations={dailyReservations} 
+        dateToDisplay={dateToDisplay} 
+      />
     );
   };
 
@@ -80,14 +70,13 @@ export default function Calendar({ onDateChange, onTimeChange, reservations }) {
 
   for (let i = 1; i <= lastDateOfMonth; i++) {
     const currentDate = new Date(currentYear, currentMonth, i);
-    const isSelectable = isDaySelectable(currentDate);
-
+    const isSelectable = currentDate;
     const isToday = i === date.getDate() && currentMonth === date.getMonth() && currentYear === date.getFullYear();
     const isSelected = selectedDate && selectedDate.getFullYear() === currentYear && selectedDate.getMonth() === currentMonth && selectedDate.getDate() === i;
     const dayClass = `${isToday ? "active" : ""} ${isSelected ? "selected" : ""} ${isSelectable ? "selectable" : ""}`;
 
     days.push(
-      <li key={i} className={dayClass} onClick={() => isSelectable && handleDateSelect(currentDate)}>
+      <li key={i} className={dayClass} onClick={() => isSelectable && handleDateSelect(currentDate, stringHour)}>
         {i}
       </li>
     );
