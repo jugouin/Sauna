@@ -114,7 +114,7 @@ const ReservationForm = ({ reservations }) => {
             </div>
             <div className='form_section form_calendar_section'>
                 <div className='monthly_calendar'>
-                    <MonthlyCalendar onDateChange={handleDateChange} reservations={reservations} />
+                    <MonthlyCalendar onDateChange={handleDateChange} reservations={reservations} personNb={formData.personNb}/>
                 </div>
             </div>
             <div className='form_section'>

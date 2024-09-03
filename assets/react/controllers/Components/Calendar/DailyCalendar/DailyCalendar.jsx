@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import "./DailyCalendar.css";
 
-export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime }) {
+export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime, personNb}) {
 
     const [selectedTime, setSelectedTime] = useState(null);
+
+    useEffect(() => {
+        setSelectedTime(null);
+    }, [dateToDisplay, personNb]);
+
 
     const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
 
@@ -15,21 +20,6 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
             hours.push(`${hour.toString().padStart(2, '0')}:00`);
         }
         return hours;
-    };
-
-    const isHourSelectable = (hour) => {
-        const now = format(new Date(), 'yyyy-MM-dd');
-        if (format(dateToDisplay, 'yyyy-MM-dd') === now){
-            const currentHour = new Date().getHours();
-            const hourToBook = parseInt(hour.split(':')[0], 10);
-
-            if (currentHour >= hourToBook) {
-                alert('Merci de bien vouloir sélectionner un autre créneau');
-                setSelectedTime(null);
-                return false;
-            }
-        }
-        return true;
     };
     
     const totalPlaces = 10;
@@ -43,13 +33,39 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
     const hours = availableHours();
 
     const handleTimeClick = (hour) => {
-        if (!(reservationsByHour[hour] > totalPlaces)) {
-            
-            if(isHourSelectable(hour)){
-                setSelectedTime(hour);
-                onChangeTime(hour);
-            }
+     
+        if(isHourSelectable(hour)){
+            setSelectedTime(hour);
+            onChangeTime(hour);
         }
+    }
+
+    const getAvailability = (hour) => {
+        const reserved = reservationsByHour[hour] || 0;
+        return totalPlaces - reserved >= personNb;
+    };
+
+    const isHourSelectable = (hour) => {
+
+        if(!getAvailability(hour)){
+            alert('Le créneau horaire sélectionné n\'a pas assez de places disponibles');
+            setSelectedTime(null);
+            return false;
+        }
+
+        const now = format(new Date(), 'yyyy-MM-dd');
+        if (format(dateToDisplay, 'yyyy-MM-dd') === now){
+            const currentHour = new Date().getHours();
+            const hourToBook = parseInt(hour.split(':')[0], 10);
+
+            if (currentHour >= hourToBook) {
+                alert('Merci de bien vouloir sélectionner un autre créneau horaire');
+                setSelectedTime(null);
+                return false;
+            }
+
+        }
+        return true;
     };
 
     const getAvailabilityText = (hour) => {

@@ -3,7 +3,7 @@ import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes 
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
-export default function Calendar({ onDateChange, reservations }) {
+export default function Calendar({ onDateChange, reservations, personNb}) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -35,6 +35,7 @@ export default function Calendar({ onDateChange, reservations }) {
   };
   
   const handleTimeChange = (date, time) => {
+    
     if (date && time) {
       const [hours, minutes] = time.split(':').map(Number);
       const reservationDate = setMinutes(setHours(date, hours), minutes);
@@ -52,6 +53,7 @@ export default function Calendar({ onDateChange, reservations }) {
         onChangeTime={(time) => handleTimeChange(dateToDisplay, time)} 
         reservations={dailyReservations} 
         dateToDisplay={dateToDisplay} 
+        personNb={personNb}
       />
     );
   };
