@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format, formatISO, setHours, setMinutes } from 'date-fns';
+import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes } from 'date-fns';
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
@@ -22,6 +22,11 @@ export default function Calendar({ onDateChange, reservations }) {
     return reservations.filter(reservation => 
       format(new Date(reservation.date), 'yyyy-MM-dd') === formattedDate
     );
+  };
+
+  const isDaySelectable = (date) => {
+    const now = new Date();
+    return isBefore(startOfDay(now), date) || isToday(date)
   };
 
   const handleDateSelect = (date) => {
@@ -70,7 +75,7 @@ export default function Calendar({ onDateChange, reservations }) {
 
   for (let i = 1; i <= lastDateOfMonth; i++) {
     const currentDate = new Date(currentYear, currentMonth, i);
-    const isSelectable = currentDate;
+    const isSelectable = isDaySelectable(currentDate);
     const isToday = i === date.getDate() && currentMonth === date.getMonth() && currentYear === date.getFullYear();
     const isSelected = selectedDate && selectedDate.getFullYear() === currentYear && selectedDate.getMonth() === currentMonth && selectedDate.getDate() === i;
     const dayClass = `${isToday ? "active" : ""} ${isSelected ? "selected" : ""} ${isSelectable ? "selectable" : ""}`;

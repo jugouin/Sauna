@@ -6,7 +6,6 @@ import "./DailyCalendar.css";
 export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime }) {
 
     const [selectedTime, setSelectedTime] = useState(null);
-    console.log(dateToDisplay);
 
     const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
 
@@ -18,6 +17,21 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
         return hours;
     };
 
+    const isHourSelectable = (hour) => {
+        const now = format(new Date(), 'yyyy-MM-dd');
+        if (format(dateToDisplay, 'yyyy-MM-dd') === now){
+            const currentHour = new Date().getHours();
+            const hourToBook = parseInt(hour.split(':')[0], 10);
+
+            if (currentHour >= hourToBook) {
+                alert('Merci de bien vouloir sélectionner un autre créneau');
+                setSelectedTime(null);
+                return false;
+            }
+        }
+        return true;
+    };
+    
     const totalPlaces = 10;
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
@@ -30,8 +44,11 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
 
     const handleTimeClick = (hour) => {
         if (!(reservationsByHour[hour] > totalPlaces)) {
-            setSelectedTime(hour);
-            onChangeTime(hour);
+            
+            if(isHourSelectable(hour)){
+                setSelectedTime(hour);
+                onChangeTime(hour);
+            }
         }
     };
 
