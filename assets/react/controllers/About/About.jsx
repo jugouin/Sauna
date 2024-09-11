@@ -5,8 +5,13 @@ import main_img from '../Assets/home_img.png';
 import Card from '../Components/Cards/AboutCard/Card';
 import Footer from '../Components/Footer/Footer';
 import "./About.css";
+import CardMap from '../Components/CardMap/cardMap';
 
 export default function () {
+
+    const text1 = "Nous vous proposons un sauna pour 4 personnes. Imaginez-vous dans un tonneau à 80 degrés, regardant dehors les sommets des montagnes enneigées. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité. Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible."
+    const text2 = "Nous vous proposons un sauna pour 10 personnes. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité. Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible. Imaginez-vous dans un tonneau à 80 degrés, regardant dehors les sommets des montagnes enneigées."
+
     return <div>
         <Header/>
         <div className='img_header'>
@@ -26,10 +31,16 @@ export default function () {
             </div>
         </section>
         <div className='about-cards'>
-            <Card/>
-            <Card/>
-            <Card/>
+            <Card text={text1}/>
+            <Card text={text2}/>
         </div>
+        <section className='description'>
+            <CardMap />
+            <p className='p_description'>
+                La société K&C est fière de vous acceuillir dans ces saunas panoramiques mobiles. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité.
+                Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible. 
+            </p>
+        </section>
         <Footer/>
     </div>
 }

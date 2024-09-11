@@ -4,6 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.emailjs_service_id: '%env(SERVICE_ID)%'
+    app.emailjs_template_id: '%env(TEMPLATE_ID)%'
+    app.emailjs_public_key: '%env(PUBLIC_KEY)%'
 
 services:
     # default configuration for services in *this* file

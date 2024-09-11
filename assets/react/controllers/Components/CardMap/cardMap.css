@@ -1,0 +1,10 @@
+.map_container {
+    margin-inline: 5vw;
+}
+
+.map {
+    height: 300px;
+    width: 400px;
+    margin-inline: 5vw;
+    border: 1px solid var(--primary-color);
+}

@@ -4,3 +4,13 @@ twig:
 when@test:
     twig:
         strict_variables: true
+
+    twig.extension.app:
+        class: Twig\Extension\GlobalsInterface
+        tags:
+            - { name: twig.extension }
+        arguments:
+            $globals:
+                emailjs_service_id: '%app.emailjs_service_id%'
+                emailjs_template_id: '%app.emailjs_template_id%'
+                emailjs_public_key: '%app.emailjs_public_key%'
