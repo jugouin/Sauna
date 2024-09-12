@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import "./DailyCalendar.css";
 
-export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime, personNb}) {
+export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime, personNb, saunaType}) {
 
     const [selectedTime, setSelectedTime] = useState(null);
 
@@ -22,7 +22,8 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
         return hours;
     };
     
-    const totalPlaces = 10;
+    const maxPersons = saunaType === 'grand' ? 10 : 4;
+    const totalPlaces = maxPersons;
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
         const hour = new Date(reservation.date).toISOString().substring(11, 16);
@@ -71,9 +72,9 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
     const getAvailabilityText = (hour) => {
         const reserved = reservationsByHour[hour] || 0;
         const available = totalPlaces - reserved;
-        return available > 0
-            ? `${available} place${available > 1 ? 's' : ''} disponible${available > 1 ? 's' : ''}`
-            : "Complet";
+        if (available === 0) return "Complet";
+        if (available < personNb) return `Pas assez de places (${available} disponible${available > 1 ? 's' : ''})`;
+        return `${available} place${available > 1 ? 's' : ''} disponible${available > 1 ? 's' : ''}`;
     };
 
     return (

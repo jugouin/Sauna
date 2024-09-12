@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React, { useState } from 'react';
 import img_header from '../Assets/header_img.jpeg';
 import main_img from '../Assets/home_img.png';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 import FormReservation from '../Components/FormReservation/FormReservation';
-//import FormReservation from '../Components/FormReservation/TestFormReservation';
 import "./Reservation.css";
 
 export default function (props) {
 
     const reservationsObject = Object.entries(props);
     const [reservations, setReservations] = useState(JSON.parse(reservationsObject[0][1]));
+
+    const params = new URLSearchParams(window.location.search);
+    const saunaType = params.get('saunaType');
 
     return <div>
         <Header/>
@@ -32,7 +34,7 @@ export default function (props) {
                 </div>
             </div>
         </section>
-        <FormReservation reservations={reservations}/>
+        <FormReservation reservations={reservations} saunaType={saunaType}/>
         <Footer/>
     </div>
 }

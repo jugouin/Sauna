@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -17,12 +16,6 @@ const style = {
 };
 
 export default function SaunaModal({ open, handleClose, title }) {
-  const navigate = useNavigate();
-
-  const handleSaunaClick = (saunaType) => {
-    handleClose();
-    navigate(`/reservation/${saunaType}sauna`);
-  };
 
   return (
     <Modal
@@ -35,11 +28,11 @@ export default function SaunaModal({ open, handleClose, title }) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {title}
         </Typography>
-        <Button onClick={() => handleSaunaClick('petit')} sx={{ color: '#462A1A' }}>
-          Le petit sauna (4 personnes)
+        <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
+          <a href="/reservation?saunaType=petit">Le petit sauna (4 personnes)</a>
         </Button>
-        <Button onClick={() => handleSaunaClick('grand')} sx={{ color: '#462A1A' }}>
-          Le grand sauna (10 personnes)
+        <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
+          <a href="/reservation?saunaType=grand">Le grand sauna (10 personnes)</a>
         </Button>
         <Button onClick={handleClose} sx={{ color: '#462A1A', position: 'absolute', top: '10%', left: '80%' }}>
           X
@@ -48,3 +41,5 @@ export default function SaunaModal({ open, handleClose, title }) {
     </Modal>
   );
 }
+
+

@@ -41,6 +41,9 @@ class ReservationType extends AbstractType
         ])
         ->add('personNb', IntegerType::class, [
             'label' => 'Nombre de personne'
+        ])
+        ->add('saunaType', TextType::class, [
+            'label' => 'Type de sauna',
         ]);
     }
 

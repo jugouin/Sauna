@@ -25,7 +25,8 @@
 .form_element > label {
     display: flex;
     flex-direction: column;
-    margin: 0 10px;
+    width: 90%;
+    margin: 0 10px 0 0;
     padding: 10px 0;
     position: relative;
 }

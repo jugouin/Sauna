@@ -1,17 +1,11 @@
-//Probleme de selection de jour et d'enregistremeent en BBD 
-// Correction, possibilite plusieurs reservations un meme jour
-// A voir pour Regrouper date et time sur un seul champ 
-// Limitation à 10 personnes 
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import axios from 'axios';
 import MonthlyCalendar from '../Calendar/MonthlyCalendar/MonthlyCalendar';
 import './FormReservation.css';
 
-const ReservationForm = ({ reservations }) => {
+const ReservationForm = ({ reservations, saunaType}) => {
     const [formData, setFormData] = useState({
         name: '',
         surname: '',
@@ -19,8 +13,17 @@ const ReservationForm = ({ reservations }) => {
         date: '',
         privatized: false,
         remarks: '',
-        personNb: 0
+        personNb: 0,
+        saunaType: ''
     });
+
+    useEffect(() => {
+        setFormData(prev => ({
+            ...prev,
+            saunaType: saunaType,
+            privatized: saunaType === 'grand' ? false : prev.privatized
+        }));
+    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -31,7 +34,6 @@ const ReservationForm = ({ reservations }) => {
     };
 
     const handleDateChange = (date) => {
-    
         setFormData(prev => ({
             ...prev,
             date: date
@@ -57,10 +59,12 @@ const ReservationForm = ({ reservations }) => {
             });
     };
 
+    const maxPersons = formData.saunaType === 'grand' ? 10 : 4;
+
     return (
         <form onSubmit={submitForm} className='form_reservation'>
             <div className='form_section'>
-                <h3>Réservation</h3>
+                <h3>Réservation pour le {formData.saunaType === 'grand' ? 'grand' : 'petit'} sauna</h3>
             </div>
             <div className='form_section'>
                 {['surname', 'name', 'phone'].map(field => (
@@ -88,33 +92,39 @@ const ReservationForm = ({ reservations }) => {
                             required
                             type="number">
                             <option value="">--</option>
-                            {[...Array(10)].map((_, i) => (
+                            {[...Array(maxPersons)].map((_, i) => (
                                 <option key={i + 1} value={i + 1}>{i + 1}</option>
                             ))}
                         </select>
                     </label>
                 </div>
                 <div className='form_element radio_element'>
-                    <label>
-                        Cochez pour privatiser le sauna :
-                        <Checkbox
-                            checked={formData.privatized}
-                            onChange={handleChange}
-                            name="privatized"
-                            inputProps={{ 'aria-label': 'controlled' }}
-                            sx={{
-                                color: orange[100],
-                                '&.Mui-checked': {
+                    {formData.saunaType === 'petit' && (
+                        <label>
+                            Cochez pour privatiser le sauna :
+                            <Checkbox
+                                checked={formData.privatized}
+                                onChange={handleChange}
+                                name="privatized"
+                                inputProps={{ 'aria-label': 'controlled' }}
+                                sx={{
                                     color: orange[100],
-                                },
-                            }}
-                        />
-                    </label>
+                                    '&.Mui-checked': {
+                                        color: orange[100],
+                                    },
+                                }}
+                            />
+                        </label>
+                    )}
                 </div>
             </div>
             <div className='form_section form_calendar_section'>
                 <div className='monthly_calendar'>
-                    <MonthlyCalendar onDateChange={handleDateChange} reservations={reservations} personNb={formData.personNb}/>
+                    <MonthlyCalendar 
+                        onDateChange={handleDateChange} 
+                        reservations={reservations} 
+                        personNb={formData.personNb}
+                        saunaType={saunaType}/>
                 </div>
             </div>
             <div className='form_section'>

@@ -3,7 +3,7 @@ import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes 
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
-export default function Calendar({ onDateChange, reservations, personNb}) {
+export default function Calendar({ onDateChange, reservations, personNb, saunaType}) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -54,6 +54,7 @@ export default function Calendar({ onDateChange, reservations, personNb}) {
         reservations={dailyReservations} 
         dateToDisplay={dateToDisplay} 
         personNb={personNb}
+        saunaType={saunaType}
       />
     );
   };

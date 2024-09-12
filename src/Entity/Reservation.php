@@ -40,7 +40,10 @@ class Reservation {
     #[ORM\Column(name: 'personNb', type: 'integer')]
     private $personNb;
 
-    public function __construct($name, $surname, $phone, $date, $privatized, $remarks, $personNb) {
+    #[ORM\Column(name: 'saunaType', type: 'string')]
+    private $saunaType;
+
+    public function __construct($name, $surname, $phone, $date, $privatized, $remarks, $personNb, $saunaType) {
         $this->name = $name;
         $this->surname = $surname;
         $this->phone = $phone;
@@ -48,6 +51,7 @@ class Reservation {
         $this->privatized = $privatized;
         $this->remarks = $remarks;
         $this->personNb = $personNb;
+        $this->saunaType = $saunaType;
         $this->setTimestamps();
     }
 
@@ -130,6 +134,17 @@ class Reservation {
     public function setPersonNb(int $personNb): self
     {
         $this->personNb = $personNb;
+        return $this;
+    }
+
+    public function getSaunaType(): ?string
+    {
+        return $this->saunaType;
+    }
+
+    public function setSaunaType(?string $saunaType): self
+    {
+        $this->saunaType = $saunaType;
         return $this;
     }
 }
