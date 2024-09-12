@@ -16,7 +16,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
 
     const availableHours = () => {
         const hours = [];
-        for (let hour = 10; hour <= 20; hour++) {
+        for (let hour = 10; hour <= 21; hour++) {
             hours.push(`${hour.toString().padStart(2, '0')}:00`);
         }
         return hours;
@@ -59,7 +59,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
             const hourToBook = parseInt(hour.split(':')[0], 10);
 
             if (currentHour >= hourToBook) {
-                alert('Merci de bien vouloir sélectionner un autre créneau horaire');
+                alert('Merci de bien vouloir sélectionner un autre créneau horaire ou un autre jour');
                 setSelectedTime(null);
                 return false;
             }

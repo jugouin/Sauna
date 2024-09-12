@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Components/Header/Header';
 import main_img from './Assets/home_img.png';
 import img_header from './Assets/header_img.jpeg';
-import Card from './Components/Cards/HomePageCard/Card';
+import Card from './Components/Card/Card';
 import Footer from './Components/Footer/Footer';
 import './Home.css';
 
@@ -11,6 +11,10 @@ export default function Home() {
     const Text1 = "Le Bouveret, situé en Valais au bord du lac Léman, partez à la découverte d'une destination unique.";
     const Text2 = "Zermatt se trouve au pied du Cervin, une des montagnes les plus célèbres au monde. Venez découvrir ce lieu hors du temps.";
     const Text3 = "Champéry, un village de caractère qui allie charme et authenticité par ses chalets plusieurs fois centenaires.";
+
+    const title = "Découvrir la mer";
+    const className = "homepage";
+
 
     return (
         <div>
@@ -32,9 +36,9 @@ export default function Home() {
                 </div>
             </section>
             <div className='card-group home-cards'>
-                <Card text={Text1} />
-                <Card text={Text2} />
-                <Card text={Text3} />
+                <Card text={Text1} title={title} className={className}/>
+                <Card text={Text2} title={title} className={className}/>
+                <Card text={Text3} title={title} className={className}/>
             </div>
             <Footer />
         </div>

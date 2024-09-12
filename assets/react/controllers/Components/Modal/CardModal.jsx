@@ -15,7 +15,7 @@ const style = {
     p: 4,
 };
 
-export default function CardModal({ open, handleClose }) {
+export default function CardModal({ open, handleClose, text, title }) {
   return (
     <Modal
       open={open}
@@ -25,10 +25,10 @@ export default function CardModal({ open, handleClose }) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Découvrir
+          {title}
         </Typography>
         <Typography id="modal-modal-description" >
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          {text}
         </Typography>
         <Button onClick={handleClose} sx={{ color: '#462A1A', position: 'absolute', top: '10%', left: '80%' }}>X</Button>
       </Box>
