@@ -4,12 +4,16 @@ import { orange } from '@mui/material/colors';
 import axios from 'axios';
 import MonthlyCalendar from '../Calendar/MonthlyCalendar/MonthlyCalendar';
 import './FormReservation.css';
+import ReservationModal from '../Modal/ReservationModal';
 
 const ReservationForm = ({ reservations, saunaType}) => {
+
+    const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         surname: '',
         phone: '',
+        email: '',
         date: '',
         privatized: false,
         remarks: '',
@@ -17,11 +21,16 @@ const ReservationForm = ({ reservations, saunaType}) => {
         saunaType: ''
     });
 
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false);
+        window.location = '/';
+    };
+
     useEffect(() => {
         setFormData(prev => ({
             ...prev,
             saunaType: saunaType,
-            privatized: saunaType === 'grand' ? false : prev.privatized
         }));
     }, []);
 
@@ -50,27 +59,28 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 },
             })
             .then((res) => {
-                alert('Merci de votre réservation');
-                window.location = '/';
+               handleOpen(formData);
             })
             .catch((err) => {
                 console.error(err);
                 alert('Une erreur est survenue, veuillez réessayer.');
             });
+        
     };
 
     const maxPersons = formData.saunaType === 'grand' ? 10 : 4;
 
     return (
         <form onSubmit={submitForm} className='form_reservation'>
+            <ReservationModal open={open} handleClose={handleClose} reservation={formData}/>
             <div className='form_section'>
                 <h3>Réservation pour le {formData.saunaType === 'grand' ? 'grand' : 'petit'} sauna</h3>
             </div>
             <div className='form_section'>
-                {['surname', 'name', 'phone'].map(field => (
+                {['surname', 'name', 'phone', 'email'].map(field => (
                     <div className="form_element" key={field}>
                         <label>
-                            {field === 'surname' ? 'Nom :' : field === 'name' ? 'Prénom :' : 'Numéro de téléphone :'}
+                            {field === 'surname' ? 'Nom :' : field === 'name' ? 'Prénom :' : field === 'email' ? 'E-mail' : 'Numéro de téléphone :'}
                             <input
                                 type={field === 'phone' ? 'tel' : 'text'}
                                 name={field}
@@ -99,7 +109,6 @@ const ReservationForm = ({ reservations, saunaType}) => {
                     </label>
                 </div>
                 <div className='form_element radio_element'>
-                    {formData.saunaType === 'petit' && (
                         <label>
                             Cochez pour privatiser le sauna :
                             <Checkbox
@@ -115,7 +124,6 @@ const ReservationForm = ({ reservations, saunaType}) => {
                                 }}
                             />
                         </label>
-                    )}
                 </div>
             </div>
             <div className='form_section form_calendar_section'>
@@ -124,7 +132,8 @@ const ReservationForm = ({ reservations, saunaType}) => {
                         onDateChange={handleDateChange} 
                         reservations={reservations} 
                         personNb={formData.personNb}
-                        saunaType={saunaType}/>
+                        saunaType={saunaType}
+                        CanBePrivatized={formData.privatized}/>
                 </div>
             </div>
             <div className='form_section'>

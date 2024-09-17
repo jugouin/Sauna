@@ -28,6 +28,9 @@ class Reservation {
     #[ORM\Column(name: 'phone', type: 'string', length: 20)]
     private $phone;
 
+    #[ORM\Column(name: 'email', type: 'string', length: 50)]
+    private $email;
+
     #[ORM\Column(name: 'date', type: 'datetime')]
     private $date;
 
@@ -43,10 +46,11 @@ class Reservation {
     #[ORM\Column(name: 'saunaType', type: 'string')]
     private $saunaType;
 
-    public function __construct($name, $surname, $phone, $date, $privatized, $remarks, $personNb, $saunaType) {
+    public function __construct($name, $surname, $phone, $email, $date, $privatized, $remarks, $personNb, $saunaType) {
         $this->name = $name;
         $this->surname = $surname;
         $this->phone = $phone;
+        $this->email = $email;
         $this->date = $date;
         $this->privatized = $privatized;
         $this->remarks = $remarks;
@@ -90,6 +94,17 @@ class Reservation {
     public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
         return $this;
     }
 

@@ -27,6 +27,9 @@ class ReservationType extends AbstractType
         ->add('phone', TextType::class, [
             'label' => 'Téléphone'
         ])
+        ->add('email', TextType::class, [
+            'label' => 'E-mail'
+        ])
         ->add('date', DateType::class, [
             'widget' => 'single_text',
             'label' => 'Date de réservation'

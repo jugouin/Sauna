@@ -3,11 +3,19 @@ import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes 
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
-export default function Calendar({ onDateChange, reservations, personNb, saunaType}) {
+export default function Calendar({ onDateChange, reservations, personNb, saunaType, CanBePrivatized}) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const today = new Date();
+    if (today.getDay() === 1) {
+      const nextDay = new Date(today);
+      nextDay.setDate(today.getDate() + 1);
+      return nextDay;
+    }
+    return today;
+  });
 
   const currentDateRef = useRef(null);
   const stringHour = selectedTime || "12:30"
@@ -26,12 +34,15 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
 
   const isDaySelectable = (date) => {
     const now = new Date();
-    return isBefore(startOfDay(now), date) || isToday(date)
-  };
+    const isMonday = date.getDay() === 1;
+    if(!isMonday){
+      return isBefore(startOfDay(now), date) || isToday(date);
+    }
+   };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    handleTimeChange(date, selectedTime);
+    handleTimeChange(date, selectedTime || stringHour);
   };
   
   const handleTimeChange = (date, time) => {
@@ -55,6 +66,7 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
         dateToDisplay={dateToDisplay} 
         personNb={personNb}
         saunaType={saunaType}
+        CanBePrivatized={CanBePrivatized}
       />
     );
   };
@@ -81,7 +93,8 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
     const isSelectable = isDaySelectable(currentDate);
     const isToday = i === date.getDate() && currentMonth === date.getMonth() && currentYear === date.getFullYear();
     const isSelected = selectedDate && selectedDate.getFullYear() === currentYear && selectedDate.getMonth() === currentMonth && selectedDate.getDate() === i;
-    const dayClass = `${isToday ? "active" : ""} ${isSelected ? "selected" : ""} ${isSelectable ? "selectable" : ""}`;
+    const isMonday = currentDate.getDay() === 1;
+    const dayClass = `${isToday ? "active" : ""} ${isSelected ? "selected" : ""} ${isSelectable ? "selectable" : ""} ${isMonday ? "disable" : ""}`;
 
     days.push(
       <li key={i} className={dayClass} onClick={() => isSelectable && handleDateSelect(currentDate, stringHour)}>

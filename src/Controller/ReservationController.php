@@ -17,19 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
-
     #[Route('/index', name: 'app_reservation_index', methods: ['GET'])]
-    public function index(Request $request, ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
+    public function index(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
     {
-        $saunaType = $request->query->get('saunaType');
+      
+        $reservations_data = $reservationRepository->findAll();
 
-        if ($saunaType !== null && !in_array($saunaType, ['petit', 'grand'])) {
-            throw new \InvalidArgumentException('Type de sauna invalide');
-        }
-
-        if ($saunaType) {
-            $reservations_data = $reservationRepository->findBy(['saunaType' => $saunaType]);
-        }
         $context = (new ObjectNormalizerContextBuilder())
             ->withGroups('reservation')
             ->toArray();
@@ -40,7 +33,6 @@ class ReservationController extends AbstractController
             'reservations_json' => $reservations_json,
         ]);
     }
-
 
     #[Route('/new', name: 'app_reservation_new', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response

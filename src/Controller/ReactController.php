@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
@@ -18,14 +19,30 @@ class ReactController extends AbstractController
     }
 
     #[Route('/reservation', name: 'reservation')]
-    public function reservation(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
+    public function reservation(ReservationRepository $reservationRepository, Request $request,SerializerInterface $serializer): Response
     {
-        $reservations_json = $this->getReservationsJson($reservationRepository, $serializer);
+        $saunaType = $request->query->get('saunaType');
+
+        if ($saunaType !== null && !in_array($saunaType, ['petit', 'grand'])) {
+            throw new \InvalidArgumentException('Type de sauna invalide');
+        }
+
+        if ($saunaType) {
+            $reservations_data = $reservationRepository->findBy(['saunaType' => $saunaType]);
+        }
+
+        $context = (new ObjectNormalizerContextBuilder())
+        ->withGroups('reservation')
+        ->toArray();
+
+        $reservations_json = $serializer->serialize($reservations_data, 'json', $context);
+
 
         return $this->render('reservation/new.html.twig', [
             'reservations_json' => $reservations_json,
         ]);
     }
+    
 
     #[Route('/about', name: 'about')]
     public function about(): Response

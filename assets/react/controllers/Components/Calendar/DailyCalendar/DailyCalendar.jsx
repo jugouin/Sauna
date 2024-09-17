@@ -1,78 +1,90 @@
 import React, { useState, useEffect } from "react";
-import { format } from 'date-fns';
+import { format, getDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import "./DailyCalendar.css";
 
-export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime, personNb, saunaType}) {
-
+export default function DailyCalendar({ reservations, dateToDisplay, onChangeTime, personNb, saunaType, CanBePrivatized}) {
     const [selectedTime, setSelectedTime] = useState(null);
 
     useEffect(() => {
         setSelectedTime(null);
     }, [dateToDisplay, personNb]);
 
-
     const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
+    const maxPersons = saunaType === 'grand' ? 10 : 4;
 
     const availableHours = () => {
-        const hours = [];
-        for (let hour = 10; hour <= 21; hour++) {
-            hours.push(`${hour.toString().padStart(2, '0')}:00`);
-        }
-        return hours;
+        const dayOfWeek = getDay(new Date(dateToDisplay));
+        return Array.from({ length: 12 }, (_, i) => i + 10)
+            .filter(hour => !(dayOfWeek === 5 && (hour === 10 || hour === 11)))
+            .map(hour => `${hour.toString().padStart(2, '0')}:00`);
     };
-    
-    const maxPersons = saunaType === 'grand' ? 10 : 4;
-    const totalPlaces = maxPersons;
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
         const hour = new Date(reservation.date).toISOString().substring(11, 16);
-        acc[hour] = (acc[hour] || 0) + reservation.personNb;
+        if (!acc[hour]) {
+            acc[hour] = { reserved: 0, privatized: false, isFull: false };
+        }
+        acc[hour].reserved += reservation.personNb;
+        acc[hour].privatized = acc[hour].privatized || reservation.privatized;
+        
+    
+        const available = maxPersons - acc[hour].reserved;
+        acc[hour].isFull = acc[hour].isFull || 
+                           available <= 0 || 
+                           (reservation.personNb >= 2 && available <= 2);
+        
         return acc;
     }, {});
 
-    const hours = availableHours();
-
     const handleTimeClick = (hour) => {
-     
         if(isHourSelectable(hour)){
             setSelectedTime(hour);
             onChangeTime(hour);
         }
     }
 
+    const isHourPrivatizable = (hour) => {
+        return !(reservationsByHour[hour]?.reserved > 0);
+    };
+
     const getAvailability = (hour) => {
-        const reserved = reservationsByHour[hour] || 0;
-        return totalPlaces - reserved >= personNb;
+        const hourData = reservationsByHour[hour] || { reserved: 0, privatized: false, isFull: false };
+        if (hourData.privatized || hourData.isFull) return false;
+        if (saunaType === 'petit' && hourData.reserved === 1) {
+            return personNb <= 1;
+        }
+        const available = maxPersons - hourData.reserved;
+        return available >= personNb && !(hourData.reserved >= 2 && available <= 2);
     };
 
     const isHourSelectable = (hour) => {
+        if (CanBePrivatized && !isHourPrivatizable(hour)) return false;
+        if (!getAvailability(hour)) return false;
 
-        if(!getAvailability(hour)){
-            alert('Le créneau horaire sélectionné n\'a pas assez de places disponibles');
-            setSelectedTime(null);
-            return false;
-        }
+        const now = new Date();
+        const bookingDate = new Date(dateToDisplay);
+        bookingDate.setHours(parseInt(hour.split(':')[0], 10));
 
-        const now = format(new Date(), 'yyyy-MM-dd');
-        if (format(dateToDisplay, 'yyyy-MM-dd') === now){
-            const currentHour = new Date().getHours();
-            const hourToBook = parseInt(hour.split(':')[0], 10);
-
-            if (currentHour >= hourToBook) {
-                alert('Merci de bien vouloir sélectionner un autre créneau horaire ou un autre jour');
-                setSelectedTime(null);
-                return false;
-            }
-
-        }
-        return true;
+        return bookingDate > now;
     };
 
     const getAvailabilityText = (hour) => {
-        const reserved = reservationsByHour[hour] || 0;
-        const available = totalPlaces - reserved;
-        if (available === 0) return "Complet";
+        const hourData = reservationsByHour[hour] || { reserved: 0, privatized: false, isFull: false };
+        
+        if (CanBePrivatized && !isHourPrivatizable(hour)) return "Indisponible";
+        if (hourData.privatized || hourData.isFull) return "Complet";
+        
+        const available = maxPersons - hourData.reserved;
+        
+        if (saunaType === 'petit' && hourData.reserved === 1) {
+            return "1 place disponible";
+        }
+        
+        if (hourData.reserved >= 2 && available <= 2) {
+            return "Complet";
+        }
+        
         if (available < personNb) return `Pas assez de places (${available} disponible${available > 1 ? 's' : ''})`;
         return `${available} place${available > 1 ? 's' : ''} disponible${available > 1 ? 's' : ''}`;
     };
@@ -80,7 +92,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
     return (
         <div className="daily-calendar-wrapper">
             <h4 className="calendar-header">{formattedDate}</h4>
-            {hours.map(hour => (
+            {availableHours().map(hour => (
                 <ul key={hour} className="daily-calendar" onClick={() => handleTimeClick(hour)}>
                     <li className={`calendar-hour ${selectedTime === hour ? 'selected' : ''}`}>
                         {hour}
