@@ -40,9 +40,9 @@
     margin-inline: 3vw;
 }
 
-.about_card {
+.about-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     height: 22vh;
     margin: 5vh;
     margin-inline: 15vh;
@@ -50,7 +50,6 @@
 
 .about-card-img {
     height: 100%;
-    width: 30%;
 }
 
 .about-card-body {
@@ -64,4 +63,5 @@
 .about-card-btn {
     justify-self: flex-end;
     align-self: baseline;
+    margin-top: -2%;
 }

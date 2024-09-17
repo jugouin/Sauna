@@ -5,6 +5,8 @@ import axios from 'axios';
 import MonthlyCalendar from '../Calendar/MonthlyCalendar/MonthlyCalendar';
 import './FormReservation.css';
 import ReservationModal from '../Modal/ReservationModal';
+import emailjs from '@emailjs/browser';
+import ReservationMessage from '../Messages/ReservationMessage';
 
 const ReservationForm = ({ reservations, saunaType}) => {
 
@@ -51,21 +53,34 @@ const ReservationForm = ({ reservations, saunaType}) => {
 
     const submitForm = async (e) => {
         e.preventDefault();
-     
+
+        const EmailJs = ReservationMessage(formData);
+ 
         axios
             .post('/reservation/new', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             })
+        emailjs
+            .send(
+            'service_vgq4xya', 
+            'template_orjdplk', 
+            {
+                email: EmailJs.email,
+                object: EmailJs.object,
+                purpose: EmailJs.purpose,
+                killian: EmailJs.killian,
+                message: EmailJs.message,
+            },
+            'vlOx8tchykbQmdYtj')
             .then((res) => {
                handleOpen(formData);
             })
             .catch((err) => {
                 console.error(err);
                 alert('Une erreur est survenue, veuillez réessayer.');
-            });
-        
+            });  
     };
 
     const maxPersons = formData.saunaType === 'grand' ? 10 : 4;

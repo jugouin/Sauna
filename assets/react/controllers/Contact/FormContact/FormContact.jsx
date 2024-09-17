@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './FormContact.css';
 import emailjs from '@emailjs/browser';
+import ContactMessage from '../../Components/Messages/ContactMessage';
+import ContactModal from '../../Components/Modal/ContactModal';
 
 const FormContact = () => {
+    const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         surname: '',
@@ -10,6 +13,12 @@ const FormContact = () => {
         email: '',
         message: ''
     });
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false);
+        window.location = '/';
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,27 +31,30 @@ const FormContact = () => {
     const submitForm = (e) => {
         e.preventDefault();
     
-        emailjs.send('service_vgq4xya', 'template_ys5k5cs', formData, 'vlOx8tchykbQmdYtj')
-            .then(
-                (result) => {
-                    console.log('SUCCESS!', result.text);
-                    setFormData({
-                        firstName: '',
-                        surname: '',
-                        phone: '',
-                        email: '',
-                        message: ''
-                    });
-                    alert('Merci pour votre message !')
-                },
-                (error) => {
-                    console.log('FAILED...', error.text);
-                }
-            )
+        const EmailJs = ContactMessage(formData);
+        emailjs.send(
+            'service_vgq4xya', 
+            'template_orjdplk', 
+            {
+                email: EmailJs.email,
+                object: EmailJs.object,
+                purpose: EmailJs.purpose,
+                killian: EmailJs.killian,
+                message: EmailJs.message,
+            },
+            'vlOx8tchykbQmdYtj')
+        .then((res) => {
+            handleOpen(formData);
+        })
+        .catch((err) => {
+            console.error(err);
+            alert('Une erreur est survenue, veuillez réessayer.');
+        }); 
     };
 
     return (
         <form onSubmit={submitForm} className='form_contact'>
+            <ContactModal open= {open} handleClose={handleClose} formData={formData}/>
             <div className='form_section'>
                 <div className="form_element">
                     <label>
