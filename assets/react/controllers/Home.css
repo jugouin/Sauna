@@ -1,9 +1,14 @@
 .img_header {
     position: relative;
-    height: 40vw;
+    height: 20vw;
     overflow: hidden;
-    top: -150px;
-    z-index: -1;
+}
+
+.img_header img {
+    height: calc(100% + 100px);
+    object-fit: cover;
+    position: absolute;
+    top: -25vh;
 }
 
 .main_img {

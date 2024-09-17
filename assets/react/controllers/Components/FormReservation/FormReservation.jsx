@@ -152,7 +152,7 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 <div className='submit_btn'>
                     <button className="btn main-btn" type="submit">Réserver</button>
                 </div>
-                <p>Merci de bien vouloir vous présenter 10min avant le début de la réservation</p>
+                <h5>Merci de bien vouloir vous présenter 10min avant le début de la réservation</h5>
             </div>
         </form>
     );

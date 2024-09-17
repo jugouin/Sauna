@@ -65,7 +65,7 @@ input::placeholder, textarea::placeholder, option {
     border-radius: 4px;
 }
 
-.form_section > p {
+.form_section > h5 {
     color: #7e0c0c;
     font-weight: 400;
 }
