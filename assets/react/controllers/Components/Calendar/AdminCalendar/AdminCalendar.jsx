@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { format, startOfWeek, addWeeks, subWeeks, endOfWeek, eachDayOfInterval, eachHourOfInterval, setHours, isEqual, startOfYesterday } from 'date-fns';
+import React, { useState } from "react";
+import { format, startOfWeek, addWeeks, subWeeks, endOfWeek, eachDayOfInterval, eachHourOfInterval, setHours, isWithinInterval, parseISO, addHours } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import AdminCalendarModal from "../../Modal/AdminCalendarModal";
+import './AdminCalendar.css';
 
-const AdminCalendar = ({reservations}) => {
-
+const AdminCalendar = ({ reservations }) => {
     const [currentWeek, setCurrentWeek] = useState(new Date());
-    const [weeklySpot, setWeeklySpot] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [selectedReservations, setSelectedReservations] = useState([]);
+    const [selectedDateTime, setSelectedDateTime] = useState(null);
 
     const weekStart = startOfWeek(currentWeek, { weekStartsOn: 1 });
     const weekEnd = endOfWeek(currentWeek, { weekStartsOn: 1 });
@@ -13,68 +16,79 @@ const AdminCalendar = ({reservations}) => {
     const daysOfWeek = eachDayOfInterval({ start: weekStart, end: weekEnd });
     const hoursOfDay = eachHourOfInterval({ start: setHours(new Date(), 10), end: setHours(new Date(), 20) });
 
-    useEffect(() => {
-        weeklyReservation();
-    }, [currentWeek]);
+    const prevWeek = () => setCurrentWeek(subWeeks(currentWeek, 1));
+    const nextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
 
-    const prevWeek = () => {
-        setCurrentWeek(subWeeks(currentWeek, 1));
+    const adjustTimeZone = (date) => {
+        return addHours(date, -2);
     };
 
-    const nextWeek = () => {
-        setCurrentWeek(addWeeks(currentWeek, 1));
-    };
-
-    const weeklyReservation = () => {
-        const spots = [];
-        spots.push(hour);
-        setWeeklySpot(spots);
-        console.log(weeklySpot);
-    };
-
-    const isBooked = (hour) => {
-
-        return reservations.some(reservation => {
-
-            const reservationDate = `${reservation.date}T${reservation.startTime}:00`;
-            return reservationDate === hour;
+    const getReservationsForTimeSlot = (day, hour) => {
+        const currentDateTime = new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour.getHours(), hour.getMinutes());
+        
+        return reservations.filter(reservation => {
+            const reservationDate = adjustTimeZone(parseISO(reservation.date));
+            return isWithinInterval(currentDateTime, {
+                start: reservationDate,
+                end: new Date(reservationDate.getTime() + 60 * 60 * 1000)
+            });
         });
     };
 
+    const handleCellClick = (day, hour) => {
+        const reservationsForSlot = getReservationsForTimeSlot(day, hour);
+        setSelectedReservations(reservationsForSlot);
+        setSelectedDateTime(new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour.getHours(), hour.getMinutes()));
+        setOpen(true);
+    };
+
+    const handleClose = () => setOpen(false);
+
     return (
-            <div className="admin-calendar-container">
-                <div className="calendar-header">
-                    <button onClick={prevWeek} className="nav-button">←</button>
-                    <h2 className="calendar-title">
-                        {format(weekStart, 'dd', { locale: fr })} - {format(weekEnd, 'dd MMMM', { locale: fr })}
-                    </h2>
-                    <button onClick={nextWeek} className="nav-button">→</button>
+        <div className="admin-calendar-container">
+            <div className="calendar-header">
+                <button onClick={prevWeek} className="nav-button">←</button>
+                <h2 className="calendar-title">
+                    {format(weekStart, 'dd', { locale: fr })} - {format(weekEnd, 'dd MMMM', { locale: fr })}
+                </h2>
+                <button onClick={nextWeek} className="nav-button">→</button>
+            </div>
+            <div className="calendar-grid">
+                <div className="calendar-grid-header">
+                    <div className="time-slot-header"></div>
+                    {daysOfWeek.map(day => (
+                        <div key={day.toISOString()} className="day-header">
+                            {format(day, 'EE', { locale: fr })}
+                            <div className="date-number">{format(day, 'dd', { locale: fr })}</div>
+                        </div>
+                    ))}
                 </div>
-                <div className="calendar-grid">
-                    <div className="calendar-grid-header">
-                        <div className="time-slot-header"></div>
-                        {daysOfWeek.map(day => (
-                            <div key={day} className="day-header">
-                                {format(day, 'EE', { locale: fr })}
-                                <div className="date-number">{format(day, 'dd', { locale: fr })}</div>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="calendar-grid-body">
-                        {hoursOfDay.map((hour, index) => (
-                            <div key={index} className="time-row">
-                                <div className="time-slot">{format(hour, 'HH:mm')}</div>
-                                {daysOfWeek.map(day => (
+                <div className="calendar-grid-body">
+                    {hoursOfDay.map((hour, index) => (
+                        <div key={index} className="time-row">
+                            <div className="time-slot">{format(hour, 'HH:mm')}</div>
+                            {daysOfWeek.map(day => {
+                                const reservationsForSlot = getReservationsForTimeSlot(day, hour);
+                                return (
                                     <div
-                                        key={day}
-                                        className={`calendar-cell ${isBooked(hour) ? 'booked' : ''}`}
+                                        key={day.toISOString()}
+                                        className={`calendar-cell ${reservationsForSlot.length > 0 ? 'booked' : ''}`}
+                                        onClick={() => handleCellClick(day, hour)}
                                     ></div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
+                                );
+                            })}
+                        </div>
+                    ))}
                 </div>
             </div>
+            
+            <AdminCalendarModal
+                open={open}
+                handleClose={handleClose}
+                reservations={selectedReservations}
+                dateTime={selectedDateTime}
+            />
+        </div>
     );
 }
 

@@ -1,7 +1,8 @@
+
 .admin-calendar-container {
-    width: 60%;
+    width: 80%;
     max-width: 1200px;
-    margin: 0 auto 5%;
+    margin: 0 auto;
     padding: 2%;
     border-radius: 5px;
     background-color: var(--forth-color);
@@ -45,7 +46,7 @@
 
 .time-slot-header {
     width: 60px;
-    border-right: 1px solid var(--grey-color);
+    border-right: 1px solid var(--secondary-color);
     box-sizing: border-box;
 }
 
@@ -53,14 +54,15 @@
     flex: 1;
     text-align: center;
     text-transform: uppercase;
+    font-weight: bold;
     padding: 10px 0;
-    border-right: 1px solid var(--grey-color);
+    border-right: 1px solid var(--secondary-color);
     position: relative;
 }
 
 .date-number {
-    color: var(--grey-color);
     margin-top: 5px;
+    font-size: 0.8em;
 }
 
 .calendar-grid-body {
@@ -88,9 +90,24 @@
     border-right: 1px solid var(--grey-color);
     padding: 10px;
     height: 40px;
-    box-sizing: border-box;
+    box-sizing: content-box;
+    cursor: pointer;
 }
 
-.booked {
-    background-color: var(--secondary-color);
+.calendar-cell.booked {
+    background-color: var(--secondary-color); 
 }
+
+.calendar-cell:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .admin-calendar-container {
+        width: 100%;
+    }
+
+    .calendar-cell {
+        height: inherit;
+    }
+  }
