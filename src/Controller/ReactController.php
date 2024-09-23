@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -56,18 +57,13 @@ class ReactController extends AbstractController
         return $this->render('Pages/contact.html.twig');
     }
 
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/admin', name: 'admin')]
-    public function admin(): Response
-    {
-        return $this->render('Pages/admin.html.twig');
-    }
-
-    #[Route('/homepageAdmin', name: 'homepageAdmin')]
-    public function homepageAdmin(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
+    public function admin(ReservationRepository $reservationRepository, SerializerInterface $serializer): Response
     {
         $reservations_json = $this->getReservationsJson($reservationRepository, $serializer);
 
-        return $this->render('Pages/homepageAdmin.html.twig', [
+        return $this->render('Pages/admin.html.twig', [
             'reservations_json' => $reservations_json,
         ]);
     }

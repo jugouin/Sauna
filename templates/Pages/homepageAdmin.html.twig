@@ -1,7 +1,0 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Homepage Admin{% endblock %}
-
-{% block body %}
-     <div {{ react_component('Admin/HomepageAdmin/homepageAdmin', {'reservations': reservations_json }) }}></div>
-{% endblock %}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { format, startOfWeek, addWeeks, subWeeks, endOfWeek, eachDayOfInterval, eachHourOfInterval, setHours, isWithinInterval, parseISO, addHours } from 'date-fns';
+import { format, startOfWeek, addWeeks, subWeeks, endOfWeek, eachDayOfInterval, eachHourOfInterval, setHours, isSameHour, parseISO, addHours } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import AdminCalendarModal from "../../Modal/AdminCalendarModal";
 import './AdminCalendar.css';
@@ -28,10 +28,7 @@ const AdminCalendar = ({ reservations }) => {
         
         return reservations.filter(reservation => {
             const reservationDate = adjustTimeZone(parseISO(reservation.date));
-            return isWithinInterval(currentDateTime, {
-                start: reservationDate,
-                end: new Date(reservationDate.getTime() + 60 * 60 * 1000)
-            });
+            return isSameHour(currentDateTime, reservationDate);
         });
     };
 

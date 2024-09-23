@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Traits\TimestampTrait;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Table;
@@ -12,7 +11,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[Table('reservation')]
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation {
-    use TimestampTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -56,7 +54,6 @@ class Reservation {
         $this->remarks = $remarks;
         $this->personNb = $personNb;
         $this->saunaType = $saunaType;
-        $this->setTimestamps();
     }
 
     public function getId(): ?int
