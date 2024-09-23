@@ -1,3 +1,52 @@
 section.description {
     flex-direction: row;
 }
+
+.about-description {
+    height: 20vw;
+    margin-inline: 5vw;
+    margin-bottom: 0;
+    overflow: scroll;
+    text-align: justify;
+    align-content: center;
+}
+
+.about-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-section > h2 {
+    padding-top: 0;
+    margin-top: -5%
+}
+
+@media (max-width: 768px) {
+
+    .about-section {
+        margin-top: 5vh;
+    }
+
+    .about-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .about-cards {
+        flex-direction: column;
+    }
+
+    section.description {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-description {
+        margin: 5vh;
+        height: fit-content;
+    }
+}

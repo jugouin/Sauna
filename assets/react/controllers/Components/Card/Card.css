@@ -3,6 +3,7 @@
     background-color: var(--accent-color);
     border: inherit;
     border-radius: inherit;
+    
     font-size: var(--small-font-size);
 }
 
@@ -14,7 +15,6 @@
 .card-body {
     display: grid;
     height: 100%;
-
 }
 
 .card-text {
@@ -24,7 +24,7 @@
 }
 
 .homepage-card {
-    margin-inline: 5vw;
+    margin-inline: 1%;
 }
 
 .homepage-card-img {
@@ -64,4 +64,43 @@
     justify-self: flex-end;
     align-self: baseline;
     margin-top: -2%;
+}
+
+@media (max-width: 768px) {
+    .card {
+        font-size: 12px;
+    }
+
+    .homepage-card-img {
+        height: 30vh;
+    }
+
+    .homepage-card {
+        margin: 5vw;
+    }
+
+    .about-card {
+        height: auto;
+        flex-direction: column;
+        margin: 5vh;
+    }
+    
+    .about-card-img {
+        height: 100%;
+    }
+    
+    .about-card-body {
+        padding: 3vh;
+    }
+    
+    .about-card-text {
+        margin-bottom: 0;
+    }
+    
+    .about-card-btn {
+        justify-self: flex-end;
+        align-self: baseline;
+        margin-top: -2%;
+    }
+
 }

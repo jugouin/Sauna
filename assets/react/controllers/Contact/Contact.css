@@ -11,6 +11,18 @@
     top: -25vh;
 }
 
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-section > h2 {
+    padding-top: 0;
+    margin-top: -5%
+}
+
 .main_img {
     width: 100vw;
     max-height: fit-content;
@@ -18,4 +30,15 @@
 
 .contact_section {
     padding: 0;
+}
+
+@media (max-width: 768px) {
+
+    .contact-section {
+        margin-top: 5vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

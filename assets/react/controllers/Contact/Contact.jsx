@@ -10,10 +10,10 @@ export default function Contact() {
     return (
         <div>
             <Header />
-            <div className='header_contact_img'>
+            <div className='img_header'>
                 <img src={img} alt="Plage" className='main_img' />
             </div>
-            <section className='contact_section'>
+            <section className='contact-section'>
                 <h2>Contact</h2>
             </section>
             <FormContact />

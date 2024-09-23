@@ -77,3 +77,35 @@ input::placeholder, textarea::placeholder, option {
     flex-basis: 100%;
     margin-right: 10px;
 }
+
+
+@media (max-width: 768px) {
+
+    .form_calendar_section {
+        display: flex;
+        justify-content: center;
+    }
+
+    .calendar-container {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .calendar-wrapper {
+        max-width: max-content;
+    }
+
+    .daily-calendar-wrapper {
+        padding: 15px;
+        width: -webkit-fill-available;
+    }
+
+
+    .daily-calendar-wrapper > h4:first-child{
+        display: none;
+    }
+
+    .form_element {
+        padding: 4px 0;
+    }
+}

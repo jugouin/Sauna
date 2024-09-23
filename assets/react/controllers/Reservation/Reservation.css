@@ -8,3 +8,18 @@
     margin-right: 2vw;
     text-align: justify;
 }
+
+.reservation-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    
+    .privatisation {
+        margin: 10%;
+    }
+
+}

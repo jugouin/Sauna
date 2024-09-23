@@ -164,10 +164,10 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 </div>
             </div>
             <div className='form_section'>
+                <h5>Merci de bien vouloir vous présenter 10min avant le début de la réservation</h5>
                 <div className='submit_btn'>
                     <button className="btn main-btn" type="submit">Réserver</button>
                 </div>
-                <h5>Merci de bien vouloir vous présenter 10min avant le début de la réservation</h5>
             </div>
         </form>
     );

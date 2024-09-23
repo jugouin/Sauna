@@ -22,20 +22,20 @@ export default function Home() {
             <div className='img_header'>
                 <img src={img_header} className='main_img' alt="Image d'en-tête" />
             </div>
-            <section>
+            <section className='home-section'>
                 <h2>Location de Sauna</h2>
                 <div className='description'>
                     <div>
                         <img src={main_img} className='section_img' alt="Image sauna" />
                     </div>
-                    <p className='p_description'>
+                    <p className='home-description'>
                         La société K&C est fière de vous accueillir dans ses saunas panoramiques mobiles. Des saunas fonctionnant au feu de bois pour profiter au maximum de calme et de sérénité.
                         Disposés sur des remorques, leur déplacement est rapide et ne pollue pas les lieux de manière irréversible. Des saunas avec une bulle afin de profiter de la superbe vue qu'offre la plage de Port-Valais.
                         Imaginez-vous dans un tonneau à 80 degrés, regardant dehors les sommets des montagnes enneigées. Une expérience unique alliant bien-être et nature.
                     </p>
                 </div>
             </section>
-            <div className='card-group home-cards'>
+            <div className='home-cards'>
                 <Card text={Text1} title={title} className={className}/>
                 <Card text={Text2} title={title} className={className}/>
                 <Card text={Text3} title={title} className={className}/>

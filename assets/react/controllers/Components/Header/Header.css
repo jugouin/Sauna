@@ -34,3 +34,30 @@
 .menu-header li a:hover {
     font-weight: 500;
 }
+
+@media (max-width: 768px) {
+    .logo{
+        height: 60px;
+    }
+
+    .menu-header ul {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .menu-header li {
+        width: auto;
+    }
+
+    .menu-header li:first-child {
+        margin-inline: 0;
+    }
+    
+    .menu-header li a {
+        font-size: var(--small-font-size);
+        font-weight: 200;
+        justify-self: right;
+        text-wrap: wrap;
+    }
+
+}
