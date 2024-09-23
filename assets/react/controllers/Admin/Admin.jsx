@@ -15,7 +15,7 @@ export default function (props) {
             <div className='img_header img_resa'>
                 <img src={img_header} className='main_img' />
             </div>
-            <section className='reservation'>
+            <section className='admin-section'>
                 <h2>Réservations</h2>
             </section>
 

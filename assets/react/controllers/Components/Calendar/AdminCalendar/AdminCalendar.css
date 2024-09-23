@@ -1,3 +1,9 @@
+.admin-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .admin-calendar-container {
     width: 80%;
