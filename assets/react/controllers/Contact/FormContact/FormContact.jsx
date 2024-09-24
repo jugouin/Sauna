@@ -34,7 +34,7 @@ const FormContact = () => {
         const EmailJs = ContactMessage(formData);
         emailjs.send(
             'service_vgq4xya', 
-            'template_orjdplk', 
+            'template_664ld4e', 
             {
                 email: EmailJs.email,
                 object: EmailJs.object,
