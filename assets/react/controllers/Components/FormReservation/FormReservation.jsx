@@ -164,7 +164,9 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 </div>
             </div>
             <div className='form_section'>
-                <h5>Merci de bien vouloir vous présenter 10min avant le début de la réservation</h5>
+                <h5>Merci de bien vouloir vous présenter avec votre linge de bain et 10min avant le début de la réservation</h5>
+                <p>Le prix est 20 CHF par personne et par séance.<br/>
+                La privatisation du {saunaType} sauna et de {saunaType === 'petit' ? 40 : 120 } CHF.</p>
                 <div className='submit_btn'>
                     <button className="btn main-btn" type="submit">Réserver</button>
                 </div>

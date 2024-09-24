@@ -40,8 +40,9 @@ export default function () {
         <section className='description'>
             <CardMap />
             <p className='about-description'>
-                La société K&C est fière de vous acceuillir dans ces saunas panoramiques mobiles. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité.
-                Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible. 
+            Besoin de faire une pause ? Notre service de réservation de sauna vous permet de programmer votre moment de détente selon vos disponibilités. 
+            Que vous soyez à la recherche d’un moment de calme en solo ou d’une séance à partager avec des amis, vous trouverez des créneaux adaptés à votre rythme. 
+            Réservez dès maintenant et laissez-vous transporter dans un espace de chaleur et de sérénité.
             </p>
         </section>
         <Footer/>
