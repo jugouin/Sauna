@@ -79,6 +79,7 @@
     
     .img_header img {
         top: -5vh;
+        object-fit: unset;
     }
     
     .main_img {

@@ -17,7 +17,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 1000,
+  width: auto,
   bgcolor: '#B07740',
   border: '2px solid #000',
   boxShadow: 24,
@@ -44,7 +44,7 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                             <TableRow>
                                 <TableCell>Nom</TableCell>
                                 <TableCell align="right">Nombre de personnes</TableCell>
-                                <TableCell align="right">Téléphone</TableCell>
+                                <TableCell align="right">Tél</TableCell>
                                 <TableCell align="right">Type de sauna</TableCell>
                                 <TableCell align="right">Remarque</TableCell>
                             </TableRow>
