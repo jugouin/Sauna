@@ -39,14 +39,14 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 <TableContainer>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table sx={{ maxWidth: 'md'}} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ p: 1 }}>Nom</TableCell>
-                                <TableCell sx={{ p: 1 }} align="right">Nombre</TableCell>
-                                <TableCell sx={{ p: 1 }} align="right">Téléphone</TableCell>
-                                <TableCell sx={{ p: 1 }} align="right">Sauna</TableCell>
-                                <TableCell sx={{ p: 1 }} align="right">Remarque</TableCell>
+                                <TableCell sx={{ p: 1, m: 2  }}>Nom</TableCell>
+                                <TableCell sx={{ p: 1, m: 2  }} align="right">Nombre</TableCell>
+                                <TableCell sx={{ p: 1, m: 2  }} align="right">Téléphone</TableCell>
+                                <TableCell sx={{ p: 1, m: 2  }} align="right">Sauna</TableCell>
+                                <TableCell sx={{ p: 1, m: 2  }} align="right">Remarque</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -55,13 +55,13 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                             key={index}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                            <TableCell sx={{ p: 1 }} component="th" scope="row">
+                            <TableCell sx={{ p: 1, m: 2  }} component="th" scope="row">
                                 {reservation.name} {reservation.surname}
                             </TableCell>
-                            <TableCell sx={{ p: 1 }} align="right">{reservation.personNb}</TableCell>
-                            <TableCell sx={{ p: 1 }} align="right">{reservation.phone}</TableCell>
-                            <TableCell sx={{ p: 1 }} align="right">{reservation.saunaType}</TableCell>
-                            <TableCell sx={{ p: 1 }} align="right">{reservation.remarks}</TableCell>
+                            <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.personNb}</TableCell>
+                            <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.phone}</TableCell>
+                            <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.saunaType}</TableCell>
+                            <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.remarks}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
