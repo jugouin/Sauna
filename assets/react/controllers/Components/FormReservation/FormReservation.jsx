@@ -64,7 +64,7 @@ const ReservationForm = ({ reservations, saunaType}) => {
             })
         emailjs
             .send(
-            'service_5vkeh3k', 
+            'service_vln44yg', 
             'template_664ld4e', 
             {
                 email: EmailJs.email,
