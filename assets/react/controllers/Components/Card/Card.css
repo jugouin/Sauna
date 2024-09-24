@@ -14,7 +14,7 @@
 
 .card-body {
     display: grid;
-    height: 100%;
+   
 }
 
 .card-text {
@@ -69,6 +69,11 @@
 @media (max-width: 768px) {
     .card {
         font-size: 12px;
+    }
+
+    .card-body {
+        display: grid;
+        height: auto;
     }
 
     .homepage-card-img {
