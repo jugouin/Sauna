@@ -12,7 +12,7 @@ export default function CardMap() {
         }).addTo(map);
 
         L.marker([46.38905668629433, 6.859803836945831]).addTo(map)
-            .bindPopup('Some text')
+            .bindPopup('Rendez-vous ici')
             .openPopup();
 
         // Optionnel : Nettoyer la carte lors du démontage du composant

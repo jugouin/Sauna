@@ -9,8 +9,8 @@ import CardMap from '../Components/CardMap/cardMap';
 
 export default function () {
 
-    const text1 = "Nous vous proposons un sauna pour 4 personnes. Imaginez-vous dans un tonneau à 80 degrés, regardant dehors les sommets des montagnes enneigées. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité. Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible."
-    const text2 = "Nous vous proposons un sauna pour 10 personnes. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité. Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible. Imaginez-vous dans un tonneau à 80 degrés, regardant dehors les sommets des montagnes enneigées."
+    const text1 = "Notre petit sauna, conçu pour accueillir jusqu'à 4 personnes, est idéal pour un moment de détente en toute intimité. Que vous soyez seul, en couple ou entre amis, réservez facilement votre créneau et plongez dans une ambiance apaisante et relaxante."
+    const text2 = "Notre grand sauna, pouvant accueillir jusqu’à 10 personnes, est parfait pour vivre un moment de détente en groupe dans une ambiance chaleureuse et conviviale. Idéal pour se relaxer entre amis, en famille ou lors d’un événement spécial, ce sauna spacieux vous offre un cadre apaisant pour partager un instant bien-être."
 
     const title = 'Découvrir';
     const className = "about";
@@ -27,9 +27,9 @@ export default function () {
                     <img src={main_img} className='section_img'/>
                 </div>
                 <p className='about-description'>
-                    La société K&C est fière de vous acceuillir dans ces saunas panoramiques mobiles. Des saunas fonctionnants au feu de bois pour profiter au maximum de calme et de sérénité.
-                    Disposés sur des remorques, leur déplacement est rapide et ne polluent pas les lieux de manière irreverssible. Des saunas avec une bulle afin de profiter de la superbe vue qu'offre la plage de Port-Valais.
-                    Imaginez vous dans un tonneau a 80 degrés à regarder dehors les sommets des montagnes enneigés. Une expérience unique alliant bien-être et nature.
+                Plongez dans un moment de détente absolue avec nos séances de sauna privatisées. Réservez votre créneau en ligne pour profiter d'un espace confortable, apaisant, 
+                et parfaitement adapté pour vous ressourcer. Que ce soit après une longue journée de travail ou pour une pause bien-être, laissez-vous envelopper par la chaleur 
+                bienfaisante et les bienfaits de la relaxation profonde. Il suffit de choisir l'heure qui vous convient le mieux, et nous nous occupons du reste !
                 </p>
             </div>
         </section>

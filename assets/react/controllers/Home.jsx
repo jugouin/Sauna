@@ -9,10 +9,10 @@ import './Home.css';
 export default function Home() {
 
     const Text1 = "Le Bouveret, situé en Valais au bord du lac Léman, partez à la découverte d'une destination unique.";
-    const Text2 = "Zermatt se trouve au pied du Cervin, une des montagnes les plus célèbres au monde. Venez découvrir ce lieu hors du temps.";
-    const Text3 = "Champéry, un village de caractère qui allie charme et authenticité par ses chalets plusieurs fois centenaires.";
+    const Text2 = "Nos saunas sont installés dans un cadre calme et naturel, propice à la détente et à l’évasion.";
+    const Text3 = "Nichés dans un environnement apaisant, nos espaces sont pensés pour vous offrir confort et sérénité, avec des installations modernes et un design chaleureux.";
 
-    const title = "Découvrir la mer";
+    const title = "Futur projet...";
     const className = "homepage";
 
 

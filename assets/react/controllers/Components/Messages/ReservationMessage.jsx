@@ -32,7 +32,7 @@ export const ReservationMessage = (formData) => {
 
         ${remarks ? `Remarques : ${remarks}` : ''}
 
-        Nous vous remercions de vous présenter 10 minutes avant le début de votre réservation.
+        Nous vous remercions de vous présenter avec vos linges de bain et 10 minutes avant le début de votre réservation.
 
         Si vous avez des questions, n'hésitez pas à nous contacter.
 

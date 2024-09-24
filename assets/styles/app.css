@@ -14,7 +14,7 @@
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
@@ -46,9 +46,4 @@ a {
 .admin-btn {
     color: var(--primary-color);
     background-color: var(--secondary-color);
-}
-
-.p_description,
-p.privatisation {
-    font-weight: 400;
 }
