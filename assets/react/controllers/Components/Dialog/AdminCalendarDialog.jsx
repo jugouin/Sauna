@@ -27,7 +27,7 @@ const AdminCalendarDialog = ({ isOpen, onClose, reservations, dateTime }) => {
                     <thead>
                         <tr>
                             <th>Nom</th>
-                            <th>Nombre personnes</th>
+                            <th>Nombre de personnes</th>
                             <th>Téléphone</th>
                             <th>Type de sauna</th>
                             <th>Remarque</th>
