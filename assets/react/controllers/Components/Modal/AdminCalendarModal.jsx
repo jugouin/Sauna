@@ -42,11 +42,11 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Nom</TableCell>
-                                <TableCell align="right">Nombre</TableCell>
-                                <TableCell align="right">Téléphone</TableCell>
-                                <TableCell align="right">Sauna</TableCell>
-                                <TableCell align="right">Remarque</TableCell>
+                                <TableCell sx={{ p: 1 }}>Nom</TableCell>
+                                <TableCell sx={{ p: 1 }} align="right">Nombre</TableCell>
+                                <TableCell sx={{ p: 1 }} align="right">Téléphone</TableCell>
+                                <TableCell sx={{ p: 1 }} align="right">Sauna</TableCell>
+                                <TableCell sx={{ p: 1 }} align="right">Remarque</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -55,13 +55,13 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                             key={index}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                            <TableCell component="th" scope="row">
+                            <TableCell sx={{ p: 1 }} component="th" scope="row">
                                 {reservation.name} {reservation.surname}
                             </TableCell>
-                            <TableCell align="right">{reservation.personNb}</TableCell>
-                            <TableCell align="right">{reservation.phone}</TableCell>
-                            <TableCell align="right">{reservation.saunaType}</TableCell>
-                            <TableCell align="right">{reservation.remarks}</TableCell>
+                            <TableCell sx={{ p: 1 }} align="right">{reservation.personNb}</TableCell>
+                            <TableCell sx={{ p: 1 }} align="right">{reservation.phone}</TableCell>
+                            <TableCell sx={{ p: 1 }} align="right">{reservation.saunaType}</TableCell>
+                            <TableCell sx={{ p: 1 }} align="right">{reservation.remarks}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
