@@ -28,10 +28,11 @@
     font-size: var(--medium-font-size);
     justify-self: center;
     text-wrap: nowrap;
+    font-weight: 400;
 }
 
 .menu-header li a:hover {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 @media (max-width: 768px) {
