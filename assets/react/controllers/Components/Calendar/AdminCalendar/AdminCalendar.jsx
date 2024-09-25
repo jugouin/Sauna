@@ -39,6 +39,16 @@ const AdminCalendar = ({ reservations }) => {
         setOpen(true);
     };
 
+    const getCellColor = (reservations) => {
+        if (reservations.length === 0) return '';
+        const hasPetit = reservations.some(r => r.saunaType === 'petit');
+        const hasGrand = reservations.some(r => r.saunaType === 'grand');
+        if (hasPetit && hasGrand) return 'both';
+        if (hasPetit) return 'petit';
+        if (hasGrand) return 'grand';
+        return '';
+    };
+
     const handleClose = () => setOpen(false);
 
     return (
@@ -66,10 +76,11 @@ const AdminCalendar = ({ reservations }) => {
                             <div className="time-slot">{format(hour, 'HH:mm')}</div>
                             {daysOfWeek.map(day => {
                                 const reservationsForSlot = getReservationsForTimeSlot(day, hour);
+                                const cellColor = getCellColor(reservationsForSlot);
                                 return (
                                     <div
                                         key={day.toISOString()}
-                                        className={`calendar-cell ${reservationsForSlot.length > 0 ? 'booked' : ''}`}
+                                        className={`calendar-cell ${reservationsForSlot.length > 0 ? 'booked' : ''} ${cellColor}`}
                                         onClick={() => handleCellClick(day, hour)}
                                     ></div>
                                 );

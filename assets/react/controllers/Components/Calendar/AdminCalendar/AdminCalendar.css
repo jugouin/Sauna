@@ -100,8 +100,16 @@
     cursor: pointer;
 }
 
-.calendar-cell.booked {
+.calendar-cell.both {
     background-color: var(--secondary-color); 
+}
+
+.calendar-cell.petit {
+    background-color: #457d45;
+}
+
+.calendar-cell.grand {
+    background-color: #253870;
 }
 
 .calendar-cell:hover {
