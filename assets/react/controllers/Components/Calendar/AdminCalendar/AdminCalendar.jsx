@@ -80,7 +80,7 @@ const AdminCalendar = ({ reservations }) => {
                                 return (
                                     <div
                                         key={day.toISOString()}
-                                        className={`calendar-cell ${reservationsForSlot.length > 0 ? 'booked' : ''} ${cellColor}`}
+                                        className={`calendar-cell ${cellColor}`}
                                         onClick={() => handleCellClick(day, hour)}
                                     ></div>
                                 );
