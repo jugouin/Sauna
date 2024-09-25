@@ -62,7 +62,7 @@ const ReservationForm = ({ reservations, saunaType}) => {
                     'Content-Type': 'application/json',
                 },
             })
-        emailjs
+       /* emailjs
             .send(
             'service_vln44yg', 
             'template_664ld4e', 
@@ -73,7 +73,7 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 killian: EmailJs.killian,
                 message: EmailJs.message,
             },
-            'c4Gx_uOqLJ-vykWom')
+            'c4Gx_uOqLJ-vykWom') */
             .then((res) => {
                handleOpen(formData);
             })
