@@ -26,7 +26,6 @@
 
 .menu-header li a {
     font-size: var(--medium-font-size);
-    font-weight: 200;
     justify-self: center;
     text-wrap: nowrap;
 }
@@ -55,7 +54,6 @@
     
     .menu-header li a {
         font-size: var(--small-font-size);
-        font-weight: 200;
         justify-self: right;
         text-wrap: wrap;
     }
