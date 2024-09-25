@@ -101,15 +101,15 @@
 }
 
 .calendar-cell.both {
-    background-color: #114232; 
+    background-color: var(--bs-success-text-emphasis); 
 }
 
 .calendar-cell.petit {
-    background-color: #FCDC2A;
+    background-color: var(--primary-color);
 }
 
 .calendar-cell.grand {
-    background-color: #87A922;
+    background-color:var(--secondary-color);
 }
 
 .calendar-cell:hover {
