@@ -1,10 +1,11 @@
 export const ReservationMessage = (formData) => {
     const { name, surname, phone, email, date, privatized, remarks, personNb, saunaType } = formData;
 
-    if(privatized == false){
-        const persons = personNb;
-        const price = persons * 20
-        return price;
+    let price;
+    if (privatized) {
+        price = saunaType === 'petit' ? 40 : 120;
+    } else {
+        price = personNb * 20;
     }
     
     return {
