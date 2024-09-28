@@ -3,7 +3,7 @@ export const ReservationMessage = (formData) => {
 
     let price;
     if (privatized) {
-        price = saunaType === 'petit' ? 40 : 120;
+        price = saunaType === 'grand' ? 120 : 40;
     } else {
         price = personNb * 20;
     }
