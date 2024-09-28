@@ -40,7 +40,7 @@ export const ReservationMessage = (formData) => {
         ${remarks ? `Remarques : ${remarks}` : ''}
 
 
-        Le prix de la réservation est de ${privatized ? `${saunaType === 'petit' ? '40' : '120'}` : `${price}` } CHF, vous pouvez régler directement sur place en espèce ou par TWINT.
+        Le prix de la réservation est de ${price} CHF, vous pouvez régler directement sur place en espèce ou par TWINT.
 
         Nous vous remercions de vous présenter avec vos linges de bain et 10 minutes avant le début de votre réservation.
 
