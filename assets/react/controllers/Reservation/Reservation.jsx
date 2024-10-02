@@ -19,8 +19,9 @@ export default function (props) {
         <div className='img_header img_resa'>
             <img src={img_header} className='main_img'/>
         </div>
+        <h2 className='reservation-title'>Réservation</h2>
+        <FormReservation reservations={reservations} saunaType={saunaType}/>
         <section className='reservation-section'>
-            <h2>Réservation</h2>
             <div className='description'>
                 <div>
                     <img src={main_img} className='section_img'/>
@@ -34,7 +35,6 @@ export default function (props) {
                 </div>
             </div>
         </section>
-        <FormReservation reservations={reservations} saunaType={saunaType}/>
         <Footer/>
     </div>
 }
