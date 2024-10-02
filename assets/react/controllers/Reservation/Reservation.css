@@ -4,8 +4,7 @@
 
 .privatisation {
     align-content: center;
-    margin-bottom: 0;
-    margin-right: 2vw;
+    margin: 5vw;
     text-align: justify;
 }
 
@@ -14,6 +13,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.reservation-title {
+    text-align: center;
 }
 
 @media (max-width: 768px) {
