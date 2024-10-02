@@ -14,7 +14,7 @@ const AdminCalendar = ({ reservations }) => {
     const weekEnd = endOfWeek(currentWeek, { weekStartsOn: 1 });
 
     const daysOfWeek = eachDayOfInterval({ start: weekStart, end: weekEnd });
-    const hoursOfDay = eachHourOfInterval({ start: setHours(new Date(), 10), end: setHours(new Date(), 20) });
+    const hoursOfDay = eachHourOfInterval({ start: setHours(new Date(), 10), end: setHours(new Date(), 21) });
 
     const prevWeek = () => setCurrentWeek(subWeeks(currentWeek, 1));
     const nextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
