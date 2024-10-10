@@ -58,7 +58,6 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Téléphone</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Sauna</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Remarque</TableCell>
-                                <TableCell sx={{ p: 1, m: 2  }} align="right">Modifier</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Supprimer</TableCell>
                             </TableRow>
                         </TableHead>
@@ -75,16 +74,6 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.phone}</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.saunaType}</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.remarks}</TableCell>
-                                <TableCell sx={{ p: 1, m: 2  }} align="right">
-                                    <span 
-                                        className="material-symbols-outlined" 
-                                        style={{ cursor: 'pointer', color: 'orange' }}
-                                        onClick={() => handleEdit(reservation.id)}
-                                        title="Modifier la réservation"
-                                    >
-                                        edit
-                                    </span>
-                                </TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">
                                     <span 
                                         className="material-symbols-outlined" 
