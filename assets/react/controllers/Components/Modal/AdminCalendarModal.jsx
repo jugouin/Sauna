@@ -25,6 +25,16 @@ const style = {
 };
 
 export default function AdminCalendarModal({ open, handleClose, reservations, dateTime }) {
+
+      const handleDelete = async (reservationId) => {
+        try {
+            await axios.delete(`/reservation/${reservationId}`);
+            window.location = '/admin';
+        } catch (error) {
+          console.error("Erreur lors de la suppression de la réservation:", error);
+        }
+    };
+    
   return (
     <div>
         <Modal
@@ -47,6 +57,7 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Téléphone</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Sauna</TableCell>
                                 <TableCell sx={{ p: 1, m: 2  }} align="right">Remarque</TableCell>
+                                <TableCell sx={{ p: 1, m: 2  }} align="right">Supprimer</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -62,6 +73,16 @@ export default function AdminCalendarModal({ open, handleClose, reservations, da
                             <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.phone}</TableCell>
                             <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.saunaType}</TableCell>
                             <TableCell sx={{ p: 1, m: 2  }} align="right">{reservation.remarks}</TableCell>
+                            <TableCell sx={{ p: 1, m: 2  }} align="right">
+                                <span 
+                                      className="material-symbols-outlined" 
+                                      style={{ cursor: 'pointer', color: 'red' }}
+                                      onClick={() => handleDelete(reservation.id)}
+                                      title="Supprimer la réservation"
+                                  >
+                                      delete
+                                    </span>
+                                </TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
