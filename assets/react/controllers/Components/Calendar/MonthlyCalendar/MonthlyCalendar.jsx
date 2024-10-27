@@ -27,7 +27,11 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
 
   const isDaySelectable = (date) => {
     const now = new Date();
-    return isBefore(startOfDay(now), date) || isToday(date);
+    if (date.getDate() === 25 && date.getMonth() === 11 ) {
+      return false;
+    } else {
+      return isBefore(startOfDay(now), date) || isToday(date);
+    }
    };
 
   const handleDateSelect = (date) => {
