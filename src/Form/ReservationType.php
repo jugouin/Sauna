@@ -7,7 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -30,9 +30,12 @@ class ReservationType extends AbstractType
         ->add('email', TextType::class, [
             'label' => 'E-mail'
         ])
-        ->add('date', DateType::class, [
+        ->add('date', DateTimeType::class, [
             'widget' => 'single_text',
-            'label' => 'Date de réservation'
+            'label' => 'Date de réservation',
+            'input' => 'datetime',
+            'model_timezone' => 'Europe/Paris',
+            'view_timezone' => 'Europe/Paris',
         ])
         ->add('privatized', CheckboxType::class, [
             'label' => 'privatized',
