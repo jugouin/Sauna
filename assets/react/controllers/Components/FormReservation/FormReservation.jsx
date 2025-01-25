@@ -167,7 +167,8 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 <h5>Merci de bien vouloir vous présenter avec votre linge de bain et 10min avant le début de la réservation</h5>
                 <p>Le prix est 20 CHF par personne et par séance.<br/>
                 La privatisation du {saunaType} sauna et de {saunaType === 'petit' ? 40 : 120 } CHF.<br/>
-                Vous pouvez régler directement sur place en espèce ou par TWINT.</p>
+                Vous pouvez régler directement sur place en espèce ou par TWINT.<br/>
+                Toute modification ou annulation de réservation effectuée moins de 24 heures à l'avance sera due.</p>
                 <div className='submit_btn'>
                     <button className="btn main-btn" type="submit">Réserver</button>
                 </div>
