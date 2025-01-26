@@ -8,6 +8,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
 
     useEffect(() => {
         setSelectedTime(null);
+        console.log(selectedTime);
     }, [dateToDisplay, personNb]);
 
     const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
@@ -22,6 +23,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
         const hour = new Date(reservation.date).toISOString().substring(11, 16);
+        console.log(hour);
         if (!acc[hour]) {
             acc[hour] = { reserved: 0, privatized: false, isFull: false };
         }
@@ -63,6 +65,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
         if (!getAvailability(hour)) return false;
 
         const now = new Date();
+        now.setHours(now.getHours() + 2);  
         const bookingDate = new Date(dateToDisplay);
         bookingDate.setHours(parseInt(hour.split(':')[0], 10));
 
