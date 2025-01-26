@@ -64,8 +64,8 @@ const ReservationForm = ({ reservations, saunaType}) => {
             })
         emailjs
             .send(
-            'service_vgq4xya', 
-            'template_orjdplk', 
+            'service_vln44yg', 
+            'template_664ld4e', 
             {
                 email: EmailJs.email,
                 object: EmailJs.object,
@@ -73,7 +73,7 @@ const ReservationForm = ({ reservations, saunaType}) => {
                 killian: EmailJs.killian,
                 message: EmailJs.message,
             },
-            'vlOx8tchykbQmdYtj')
+            'c4Gx_uOqLJ-vykWom')
             .then((res) => {
                handleOpen(formData);
             })
