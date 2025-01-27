@@ -20,7 +20,8 @@ const AdminCalendar = ({ reservations }) => {
     const nextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
 
     const adjustTimeZone = (date) => {
-        return addHours(date, -2);
+    // Change to -2 pour l'heure d'été
+        return addHours(date, -1);
     };
 
     const getReservationsForTimeSlot = (day, hour) => {
@@ -37,6 +38,16 @@ const AdminCalendar = ({ reservations }) => {
         setSelectedReservations(reservationsForSlot);
         setSelectedDateTime(new Date(day.getFullYear(), day.getMonth(), day.getDate(), hour.getHours(), hour.getMinutes()));
         setOpen(true);
+    };
+
+    const getCellColor = (reservations) => {
+        if (reservations.length === 0) return '';
+        const hasPetit = reservations.some(r => r.saunaType === 'petit');
+        const hasGrand = reservations.some(r => r.saunaType === 'grand');
+        if (hasPetit && hasGrand) return 'both';
+        if (hasPetit) return 'petit';
+        if (hasGrand) return 'grand';
+        return '';
     };
 
     const handleClose = () => setOpen(false);
@@ -66,10 +77,11 @@ const AdminCalendar = ({ reservations }) => {
                             <div className="time-slot">{format(hour, 'HH:mm')}</div>
                             {daysOfWeek.map(day => {
                                 const reservationsForSlot = getReservationsForTimeSlot(day, hour);
+                                const cellColor = getCellColor(reservationsForSlot);
                                 return (
                                     <div
                                         key={day.toISOString()}
-                                        className={`calendar-cell ${reservationsForSlot.length > 0 ? 'booked' : ''}`}
+                                        className={`calendar-cell ${cellColor}`}
                                         onClick={() => handleCellClick(day, hour)}
                                     ></div>
                                 );

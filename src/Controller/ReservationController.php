@@ -8,6 +8,7 @@ use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,13 +58,47 @@ class ReservationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
+        $form = $this->createForm(ReservationType::class, $reservation, [
+            'csrf_protection' => false,
+            'allow_extra_fields' => true
+        ]);
+
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true);
+            
+            if (isset($data['date'])) {
+                $dateTime = new \DateTime($data['date']);
+                $reservation->setDate($dateTime);
+                unset($data['date']);
+            }
+            
+            $formFields = array_keys($form->all());
+            $filteredData = array_intersect_key($data, array_flip($formFields));
+            
+            $form->submit($filteredData, false);
+        } else {
+            $form->handleRequest($request);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse([
+                    'message' => 'Reservation updated successfully',
+                    'date' => $reservation->getDate()->format('Y-m-d\TH:i:s')
+                ]);
+            }
+
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($request->isXmlHttpRequest()) {
+            $errors = [];
+            foreach ($form->getErrors(true) as $error) {
+                $errors[] = $error->getMessage();
+            }
+            return new JsonResponse(['error' => 'Invalid form data', 'details' => $errors], 400);
         }
 
         return $this->render('reservation/edit.html.twig', [
@@ -72,13 +107,11 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
-    public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_reservation_delete', methods: ['DELETE'])]
+    public function delete(Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($reservation);
-            $entityManager->flush();
-        }
+        $entityManager->remove($reservation);
+        $entityManager->flush();
 
         return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
     }

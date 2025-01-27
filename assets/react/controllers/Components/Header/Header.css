@@ -26,13 +26,13 @@
 
 .menu-header li a {
     font-size: var(--medium-font-size);
+    font-weight: 400;
     justify-self: center;
     text-wrap: nowrap;
-    font-weight: 400;
 }
 
 .menu-header li a:hover {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -55,6 +55,7 @@
     
     .menu-header li a {
         font-size: var(--small-font-size);
+        font-weight: 400;
         justify-self: right;
         text-wrap: wrap;
     }

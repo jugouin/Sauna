@@ -7,15 +7,8 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const today = new Date();
-    if (today.getDay() === 1) {
-      const nextDay = new Date(today);
-      nextDay.setDate(today.getDate() + 1);
-      return nextDay;
-    }
-    return today;
-  });
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
 
   const currentDateRef = useRef(null);
   const stringHour = selectedTime || "12:30"
@@ -34,8 +27,9 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
 
   const isDaySelectable = (date) => {
     const now = new Date();
-    const isMonday = date.getDay() === 1;
-    if(!isMonday){
+    if (date.getDate() === 25 && date.getMonth() === 11 ) {
+      return false;
+    } else {
       return isBefore(startOfDay(now), date) || isToday(date);
     }
    };
