@@ -33,8 +33,8 @@ const FormContact = () => {
     
         const EmailJs = ContactMessage(formData);
         emailjs.send(
-            'service_vgq4xya',
-            'template_orjdplk', 
+            'service_vln44yg', 
+            'template_664ld4e', 
             {
                 email: EmailJs.email,
                 object: EmailJs.object,
@@ -42,7 +42,7 @@ const FormContact = () => {
                 killian: EmailJs.killian,
                 message: EmailJs.message,
             },
-            'vlOx8tchykbQmdYtj')
+            'c4Gx_uOqLJ-vykWom')
         .then((res) => {
             handleOpen(formData);
         })
