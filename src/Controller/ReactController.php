@@ -72,6 +72,11 @@ class ReactController extends AbstractController
     {
         $reservations_data = $reservationRepository->findAll();
 
+        $parisTz = new \DateTimeZone('Europe/Paris');
+        foreach ($reservations_data as $reservation) {
+            $reservation->setDate($reservation->getDate()->setTimezone($parisTz));
+        }
+
         $context = (new ObjectNormalizerContextBuilder())
             ->withGroups('reservation')
             ->toArray();
