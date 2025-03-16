@@ -76,7 +76,7 @@ class ReservationController extends AbstractController
                 $reservation->setDate($dateTime);
                 unset($data['date']);
             }
-
+            
             $formFields = array_keys($form->all());
             $filteredData = array_intersect_key($data, array_flip($formFields));
             

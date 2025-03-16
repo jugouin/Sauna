@@ -39,8 +39,9 @@ export const ReservationMessage = (formData) => {
 
         ${remarks ? `Remarques : ${remarks}` : ''}
 
-
         Le prix de la réservation est de ${price} CHF, vous pouvez régler directement sur place en espèce ou par TWINT.
+
+        Toute modification de la réservation doit être annoncée au moins 24 heures à l'avance. En cas de non-présentation, le montant total de la réservation reste dû.
 
         Nous vous remercions de vous présenter avec vos linges de bain et 10 minutes avant le début de votre réservation.
 

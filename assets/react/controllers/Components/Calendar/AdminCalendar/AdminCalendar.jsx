@@ -20,6 +20,7 @@ const AdminCalendar = ({ reservations }) => {
     const nextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
 
     const adjustTimeZone = (date) => {
+    // Change to -2 pour l'heure d'été
         return addHours(date, -1);
     };
 

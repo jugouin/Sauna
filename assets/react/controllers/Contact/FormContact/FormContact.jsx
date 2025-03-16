@@ -33,8 +33,8 @@ const FormContact = () => {
     
         const EmailJs = ContactMessage(formData);
         emailjs.send(
-            'service_vln44yg', 
-            'template_664ld4e', 
+            'service_vln44yg',
+            'template_y5nfv6g',
             {
                 email: EmailJs.email,
                 object: EmailJs.object,

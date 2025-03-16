@@ -65,6 +65,7 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
         if (!getAvailability(hour)) return false;
 
         const now = new Date();
+        now.setHours(now.getHours() + 2);  
         const bookingDate = new Date(dateToDisplay);
         bookingDate.setHours(parseInt(hour.split(':')[0], 10));
 

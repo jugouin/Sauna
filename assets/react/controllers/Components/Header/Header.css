@@ -55,6 +55,7 @@
     
     .menu-header li a {
         font-size: var(--small-font-size);
+        font-weight: 400;
         justify-self: right;
         text-wrap: wrap;
     }
