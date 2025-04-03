@@ -15,7 +15,7 @@ export default function () {
     return <div className='header-content'>
         <div className="logo">
             <a href="/">
-                <img src={logo} className='logo' alt="Logo du site"/>
+                <img src={logo} className='logo' alt="Logo du site" loading="lazy"/>
             </a>
         </div>
         <nav className="menu-header">

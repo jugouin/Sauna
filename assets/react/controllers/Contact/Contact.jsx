@@ -11,7 +11,7 @@ export default function Contact() {
         <div>
             <Header />
             <div className='img_header'>
-                <img src={img} alt="Plage" className='main_img' />
+                <img src={img} alt="Plage" className='main_img' loading="lazy" />
             </div>
             <section className='contact-section'>
                 <h2>Contact</h2>

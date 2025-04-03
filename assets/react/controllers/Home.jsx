@@ -20,13 +20,13 @@ export default function Home() {
         <div>
             <Header />
             <div className='img_header'>
-                <img src={img_header} className='main_img' alt="Image d'en-tête" />
+                <img src={img_header} className='main_img' alt="Image d'en-tête" loading="lazy" />
             </div>
             <section className='home-section'>
                 <h2>Location de Sauna</h2>
                 <div className='description'>
                     <div>
-                        <img src={main_img} className='section_img' alt="Image sauna" />
+                        <img src={main_img} className='section_img' alt="Image sauna" loading="lazy"/>
                     </div>
                     <p className='home-description'>
                         La société K&C est fière de vous accueillir dans ses saunas panoramiques mobiles. Des saunas fonctionnant au feu de bois pour profiter au maximum de calme et de sérénité.

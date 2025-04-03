@@ -17,14 +17,14 @@ export default function (props) {
     return <div>
         <Header/>
         <div className='img_header img_resa'>
-            <img src={img_header} className='main_img'/>
+            <img src={img_header} className='main_img' loading="lazy"/>
         </div>
         <h2 className='reservation-title'>Réservation</h2>
         <FormReservation reservations={reservations} saunaType={saunaType}/>
         <section className='reservation-section'>
             <div className='description'>
                 <div>
-                    <img src={main_img} className='section_img'/>
+                    <img src={main_img} className='section_img' loading="lazy"/>
                 </div>
                 <div className='privatisation'>
                     <h5>Privatisation</h5>
