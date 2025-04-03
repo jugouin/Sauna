@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import img_header from '../Assets/header_img.jpeg';
-import main_img from '../Assets/home_img.png';
+import img_header from '../Assets/header_img.webp';
+import main_img from '../Assets/home_img.webp';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 import FormReservation from '../Components/FormReservation/FormReservation';
