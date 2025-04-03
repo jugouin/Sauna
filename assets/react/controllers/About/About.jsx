@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Components/Header/Header';
-import img_header from '../Assets/header_img.jpeg';
-import main_img from '../Assets/home_img.png';
+import img_header from '../Assets/header_img.webp';
+import main_img from '../Assets/home_img.webp';
 import Card from '../Components/Card/Card';
 import Footer from '../Components/Footer/Footer';
 import "./About.css";

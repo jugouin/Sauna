@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Contact.css";
-import img from "../Assets/plage.png";
+import img from "../Assets/plage.webp";
 import Header from '../Components/Header/Header';
 import FormContact from './FormContact/FormContact';
 import Footer from '../Components/Footer/Footer';

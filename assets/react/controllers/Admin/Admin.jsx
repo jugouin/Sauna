@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AdminCalendar from "../Components/Calendar/AdminCalendar/AdminCalendar";
-import img_header from '../Assets/header_img.jpeg';
+import img_header from '../Assets/header_img.webp';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 

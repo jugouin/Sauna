@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../../Assets/logo.png';
+import logo from '../../Assets/logo.webp';
 import Modal from '../Modal/SaunaModal';
 import "./Header.css";
 
