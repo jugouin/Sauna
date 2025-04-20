@@ -27,17 +27,17 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
 
   const isDaySelectable = (date) => {
     const now = new Date();
-    const seasonEnd = (date.getDate() === 3 && date.getMonth() === 4)
-    const seasonStart = (date.getDate() === 1 && date.getMonth() === 9)  
+    const seasonStart = new Date(date.getFullYear(), 9, 1)
+    const seasonEnd = new Date(date.getFullYear(), 4, 3)
     if (date.getDate() === 25 && date.getMonth() === 11 ) {
       return false;
     } 
-    if (isAfter(seasonEnd, date) && isBefore(seasonStart, date)) {
+    if (isAfter(date, seasonEnd) && isBefore(date, seasonStart)) {
       return false;
     } else {
       return isBefore(startOfDay(now), date) || isToday(date);
     }
-   };
+  };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
