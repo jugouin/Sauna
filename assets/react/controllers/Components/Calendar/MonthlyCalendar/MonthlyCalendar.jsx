@@ -28,7 +28,7 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
   const isDaySelectable = (date) => {
     const now = new Date();
     const seasonStart = new Date(date.getFullYear(), 9, 1)
-    const seasonEnd = new Date(date.getFullYear(), 4, 3)
+    const seasonEnd = new Date(date.getFullYear(), 4, 2)
     if (date.getDate() === 25 && date.getMonth() === 11 ) {
       return false;
     } 
