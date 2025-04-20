@@ -13,6 +13,9 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
   const currentDateRef = useRef(null);
   const stringHour = selectedTime || "12:30"
 
+  const seasonEnd = (date.getDate() === 3 && date.getMonth() === 4)
+  const seasonBegin = (date.getDate() === 1 && date.getMonth() === 9)
+
   const months = [
     "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
     "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
@@ -28,6 +31,9 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
   const isDaySelectable = (date) => {
     const now = new Date();
     if (date.getDate() === 25 && date.getMonth() === 11 ) {
+      return false;
+    } 
+    if (isAfter(seasonEnd, date) && isBefore(seasonBegin, date)) {
       return false;
     } else {
       return isBefore(startOfDay(now), date) || isToday(date);
