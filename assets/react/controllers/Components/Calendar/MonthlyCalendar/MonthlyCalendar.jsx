@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes } from 'date-fns';
+import { format, formatISO, isBefore, isAfter, isToday, startOfDay, setHours, setMinutes } from 'date-fns';
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
@@ -27,12 +27,17 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
 
   const isDaySelectable = (date) => {
     const now = new Date();
+    const seasonStart = new Date(date.getFullYear(), 9, 1)
+    const seasonEnd = new Date(date.getFullYear(), 4, 2)
     if (date.getDate() === 25 && date.getMonth() === 11 ) {
+      return false;
+    } 
+    if (isAfter(date, seasonEnd) && isBefore(date, seasonStart)) {
       return false;
     } else {
       return isBefore(startOfDay(now), date) || isToday(date);
     }
-   };
+  };
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);

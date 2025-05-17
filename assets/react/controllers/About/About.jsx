@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Components/Header/Header';
-import img_header from '../Assets/header_img.jpeg';
-import main_img from '../Assets/home_img.png';
+import img_header from '../Assets/header_img.webp';
+import main_img from '../Assets/home_img.webp';
 import Card from '../Components/Card/Card';
 import Footer from '../Components/Footer/Footer';
 import "./About.css";
@@ -18,13 +18,13 @@ export default function () {
     return <div>
         <Header/>
         <div className='img_header'>
-            <img src={img_header} className='main_img'/>
+            <img src={img_header} className='main_img' loading="lazy"/>
         </div>
         <section className="about-section">
             <h2>Présentation</h2>
             <div className='description'>
                 <div>
-                    <img src={main_img} className='section_img'/>
+                    <img src={main_img} className='section_img' loading="lazy"/>
                 </div>
                 <p className='about-description'>
                 Plongez dans un moment de détente absolue avec nos séances de sauna privatisées. Réservez votre créneau en ligne pour profiter d'un espace confortable, apaisant, 

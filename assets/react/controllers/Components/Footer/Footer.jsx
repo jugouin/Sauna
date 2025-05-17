@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../Assets/logo.png';
+import logo from '../../Assets/logo.webp';
 import "./Footer.css";
 
 export default function () {
@@ -8,7 +8,7 @@ export default function () {
         <div className='footer-container'>
             <div className="logo">
                 <a href="/">
-                    <img src={logo} className='logo' alt="Logo du site"/>
+                    <img src={logo} className='logo' alt="Logo du site" loading="lazy"/>
                 </a>
             </div>
             <div className='container footer-info footer-container'>
