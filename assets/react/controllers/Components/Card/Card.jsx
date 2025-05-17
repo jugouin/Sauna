@@ -11,7 +11,7 @@ export default function Card({ text, title, className }) {
 
   return (
     <div className={`card ${className}-card`}>
-      <img className={`card-img ${className}-card-img`} src={img} alt="Card image cap" />
+      <img className={`card-img ${className}-card-img`} src={img} alt="Card image cap" loading="lazy" />
       <div className={`card-body ${className}-card-body`}>
         <p className="card-text">{text}</p>
         <button onClick={handleOpen} className={`btn main-btn ${className}-card-btn`}>Découvrir</button>

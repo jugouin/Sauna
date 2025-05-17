@@ -17,9 +17,7 @@ const style = {
     p: 4,
 };
 
-
-
-export default function CardModal({ open, handleClose, reservation, }) {
+export default function ReservationModal({ open, onClose, reservation}) {
 
     let formattedDate = 'Date invalide';
     let formattedTime = 'Heure invalide';
@@ -35,7 +33,7 @@ export default function CardModal({ open, handleClose, reservation, }) {
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
         <Box sx={style}>
@@ -52,7 +50,7 @@ export default function CardModal({ open, handleClose, reservation, }) {
                 <strong>Téléphone:</strong> {reservation.phone}<br />
                 <strong>Email :</strong> {reservation.email}<br />
             </Typography>
-            <Button onClick={handleClose} variant="text" color="success" sx={{ mt: 3 }}>
+            <Button onClick={onClose} variant="text" color="success" sx={{ mt: 3 }}>
                 Fermer
             </Button>
         </Box>

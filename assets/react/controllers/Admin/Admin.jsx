@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AdminCalendar from "../Components/Calendar/AdminCalendar/AdminCalendar";
-import img_header from '../Assets/header_img.jpeg';
+import img_header from '../Assets/header_img.webp';
 import Header from '../Components/Header/Header';
 import Footer from '../Components/Footer/Footer';
 
@@ -13,7 +13,7 @@ export default function (props) {
         <div>
             <Header />
             <div className='img_header img_resa'>
-                <img src={img_header} className='main_img' />
+                <img src={img_header} className='main_img' loading="lazy" />
             </div>
             <section className='admin-section'>
                 <h2>Réservations</h2>

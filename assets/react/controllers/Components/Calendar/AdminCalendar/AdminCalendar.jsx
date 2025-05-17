@@ -20,7 +20,23 @@ const AdminCalendar = ({ reservations }) => {
     const nextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
 
     const adjustTimeZone = (date) => {
-        return addHours(date, -2);
+
+        const dateToCheck = new Date(date);
+        const year = dateToCheck.getFullYear();
+
+        const dstStart = new Date(year, 2, 31);
+        dstStart.setDate(31 - dstStart.getDay()); 
+        
+        const dstEnd = new Date(year, 9, 31);
+        dstEnd.setDate(31 - dstEnd.getDay());
+
+        const isDST = dateToCheck >= dstStart && dateToCheck < dstEnd;
+        
+        if (isDST) {
+            return addHours(date, -2);
+        } else {
+            return addHours(date, -1);
+        }
     };
 
     const getReservationsForTimeSlot = (day, hour) => {
