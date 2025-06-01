@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { isWinter } from '../../Reservation/Reservation'
 
 const style = {
     position: 'absolute',
@@ -16,8 +15,14 @@ const style = {
     p: 4,
 };
 
-const date = new Date()
-const isDisabled = isWinter(date)
+const isDisabled = () => {
+  const date = new Date()
+  const year = date.getFullYear();
+  const seasonStart = new Date(year, 9, 1);     // 1er octobre (mois = 9)
+  const seasonEnd = new Date(year + 1, 4, 2);   // 2 mai de l'année suivante
+
+  return date >= seasonStart || date < seasonEnd;
+}
 
 export default function SaunaModal({ open, handleClose, title }) {
 
