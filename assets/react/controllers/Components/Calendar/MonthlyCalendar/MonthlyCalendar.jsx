@@ -36,8 +36,24 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
     return isChristmas
   }
 
+  const isWinter = (date) => {
+    const month = date.getMonth();
+    const day = date.getDate();
+    return (month >= 9) || (month < 4) || (month === 4 && day <= 3);
+  }
+
+  const isClosed = (date) => {
+    const dayOfWeek = getDay(new Date(date));
+    const closedDays = [3, 4]
+    return closedDays.includes(dayOfWeek)
+  }
+
+  const summerException = (date) => {
+    return !isWinter(date) && isClosed(date)
+  }
+
   const isDaySelectable = (date) => {
-    return (!isPast(date) && !isDayOff(date)) || isToday(date)
+    return (!isPast(date) && !isDayOff(date) && !summerException(date))|| isToday(date)
   }
 
   const handleDateSelect = (date) => {
