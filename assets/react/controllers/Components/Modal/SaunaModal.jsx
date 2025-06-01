@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { isWinter } from '../../Reservation/Reservation'
 
 const style = {
     position: 'absolute',
@@ -14,6 +15,9 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
+const date = new Date()
+const isDisabled = isWinter(date)
 
 export default function SaunaModal({ open, handleClose, title }) {
 
@@ -31,7 +35,7 @@ export default function SaunaModal({ open, handleClose, title }) {
         <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
           <a href="/reservation?saunaType=petit">Le petit sauna (4 personnes)</a>
         </Button>
-        <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
+        <Button onClick={handleClose}  disabled={isDisabled} sx={{ color: '#462A1A' }}>
           <a href="/reservation?saunaType=grand">Le grand sauna (10 personnes)</a>
         </Button>
         <Button onClick={handleClose} sx={{ color: '#462A1A', position: 'absolute', top: '10%', left: '80%' }}>

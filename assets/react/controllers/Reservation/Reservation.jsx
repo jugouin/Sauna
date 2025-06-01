@@ -11,8 +11,15 @@ export default function (props) {
     const reservationsObject = Object.entries(props);
     const [reservations, setReservations] = useState(JSON.parse(reservationsObject[0][1]));
 
+    const date = new Date()
+    const isWinter = (date) => {
+        const seasonStart = new Date(date.getFullYear(), 9, 1) // 1 octobre
+        const seasonEnd = new Date(date.getFullYear(), 4, 2) // 2 mai
+        return isAfter(date, seasonEnd) && isBefore(date, seasonStart) ? false : true
+    }
+
     const params = new URLSearchParams(window.location.search);
-    const saunaType = params.get('saunaType');
+    const saunaType = isWinter(date) ? params.get('saunaType') : 'petit';
 
     return <div>
         <Header/>

@@ -14,12 +14,29 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
     const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
     const maxPersons = saunaType === 'grand' ? 10 : 4;
 
+
+    const isWinter = (date) => {
+        const seasonStart = new Date(date.getFullYear(), 9, 1) // 1 octobre
+        const seasonEnd = new Date(date.getFullYear(), 4, 2) // 2 mai
+        return isAfter(date, seasonEnd) && isBefore(date, seasonStart) ? false : true
+    }
+
     const availableHours = () => {
         const dayOfWeek = getDay(new Date(dateToDisplay));
-        return Array.from({ length: 12 }, (_, i) => i + 10)
-            .filter(hour => !(dayOfWeek === 5 && (hour === 10 || hour === 11)))
-            .map(hour => `${hour.toString().padStart(2, '0')}:00`);
-    };
+        if (isWinter(dateToDisplay)) {
+            return Array.from({ length: 12 }, (_, i) => i + 10)
+                // vendredi ouvert à partir de 
+                .filter(hour => !(dayOfWeek === 5 && (hour === 10 || hour === 11)))
+                .map(hour => `${hour.toString().padStart(2, '0')}:00`);
+        } else {
+            // Fermé les mercredis, jeudis
+            const closedDays = [3, 4]
+            if (!(closedDays.includes(dayOfWeek))) return []
+
+            return Array.from({ length: 8 }, (_, i) => i + 10)
+                .map(hour => `${hour.toString().padStart(2, '0')}:00`);
+        }
+    }
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
         const hour = new Date(reservation.date).toISOString().substring(11, 16);

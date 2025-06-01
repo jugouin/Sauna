@@ -23,36 +23,35 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
     return reservations.filter(reservation => 
       format(new Date(reservation.date), 'yyyy-MM-dd') === formattedDate
     );
-  };
+  }
+
+  const isPast = (date) => {
+    const now = new Date()
+    return isBefore(startOfDay(now), date)
+  }
+
+  const isDayOff = (date) => {
+    const isChristmas = date.getDate() === 25 && date.getMonth() === 11
+    return !isChristmas
+  }
 
   const isDaySelectable = (date) => {
-    const now = new Date();
-    const seasonStart = new Date(date.getFullYear(), 9, 1)
-    const seasonEnd = new Date(date.getFullYear(), 4, 2)
-    if (date.getDate() === 25 && date.getMonth() === 11 ) {
-      return false;
-    } 
-    if (isAfter(date, seasonEnd) && isBefore(date, seasonStart)) {
-      return false;
-    } else {
-      return isBefore(startOfDay(now), date) || isToday(date);
-    }
-  };
+    return !isPast(date) && !isDayOff(date)
+  }
 
   const handleDateSelect = (date) => {
-    setSelectedDate(date);
-    handleTimeChange(date, selectedTime || stringHour);
-  };
+    setSelectedDate(date)
+    handleTimeChange(date, selectedTime || stringHour)
+  }
   
   const handleTimeChange = (date, time) => {
-    
     if (date && time) {
       const [hours, minutes] = time.split(':').map(Number);
       const reservationDate = setMinutes(setHours(date, hours), minutes);
       const newDateTimeISO = formatISO(reservationDate);
       onDateChange(newDateTimeISO);
     }
-  };
+  }
 
   const renderDailyCalendar = () => {
     const dateToDisplay = selectedDate || new Date();
