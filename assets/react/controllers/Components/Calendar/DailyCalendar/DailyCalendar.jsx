@@ -16,9 +16,11 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
 
 
     const isWinter = (date) => {
-        const seasonStart = new Date(date.getFullYear(), 9, 1) // 1 octobre
-        const seasonEnd = new Date(date.getFullYear(), 4, 2) // 2 mai
-        return isAfter(date, seasonEnd) && isBefore(date, seasonStart) ? false : true
+        const year = date.getFullYear();
+        const seasonStart = new Date(year, 9, 1);     // 1er octobre (mois = 9)
+        const seasonEnd = new Date(year + 1, 4, 2);   // 2 mai de l'année suivante
+      
+        return date >= seasonStart || date < seasonEnd;
     }
 
     const availableHours = () => {
