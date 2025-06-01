@@ -16,12 +16,11 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
 
 
     const isWinter = (date) => {
-        const year = date.getFullYear();
-        const seasonStart = new Date(year, 9, 1);     // 1er octobre (mois = 9)
-        const seasonEnd = new Date(year + 1, 4, 2);   // 2 mai de l'année suivante
-      
-        return date >= seasonStart || date < seasonEnd;
-    }
+        const month = date.getMonth();
+        const day = date.getDate();
+
+        return (month >= 9) || (month < 4) || (month === 4 && day <= 3);
+    };
 
     const availableHours = () => {
         const dayOfWeek = getDay(new Date(dateToDisplay));

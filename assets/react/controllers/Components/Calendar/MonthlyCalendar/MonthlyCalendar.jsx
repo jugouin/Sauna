@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format, formatISO, isBefore, isAfter, isToday, startOfDay, setHours, setMinutes } from 'date-fns';
+import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes } from 'date-fns';
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
