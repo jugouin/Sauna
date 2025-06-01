@@ -26,13 +26,14 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
   }
 
   const isPast = (date) => {
-    const now = new Date()
-    return isBefore(startOfDay(now), date)
+    const today = startOfDay(new Date())
+    const targetDate = startOfDay(date)
+    return isBefore(targetDate, today)
   }
 
   const isDayOff = (date) => {
     const isChristmas = date.getDate() === 25 && date.getMonth() === 11
-    return !isChristmas
+    return isChristmas
   }
 
   const isDaySelectable = (date) => {
