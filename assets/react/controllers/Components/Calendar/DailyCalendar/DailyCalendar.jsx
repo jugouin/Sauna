@@ -26,17 +26,25 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
     const availableHours = () => {
         const dayOfWeek = getDay(new Date(dateToDisplay));
         if (isWinter(dateToDisplay)) {
-            return Array.from({ length: 12 }, (_, i) => i + 10)
-                // vendredi ouvert à partir de 
-                .filter(hour => !(dayOfWeek === 5 && (hour === 10 || hour === 11)))
-                .map(hour => `${hour.toString().padStart(2, '0')}:00`);
+            // HIVER: vendredi 12h-21h
+            if (dayOfWeek === 5) {
+                return Array.from({ length: 10 }, (_, i) => i + 12)
+                    .map(hour => `${hour.toString().padStart(2, '0')}:00`)
+            } else {
+                // Autres jours: 10h → 21h
+                return Array.from({ length: 12 }, (_, i) => i + 10)
+                    .map(hour => `${hour.toString().padStart(2, '0')}:00`)
+            }
         } else {
-            // Fermé les mercredis, jeudis
+            // ÉTÉ: Fermé mercredi/jeudi
             const closedDays = [3, 4]
-            if (!(closedDays.includes(dayOfWeek))) return []
-
-            return Array.from({ length: 8 }, (_, i) => i + 10)
-                .map(hour => `${hour.toString().padStart(2, '0')}:00`);
+            if (closedDays.includes(dayOfWeek)) {
+                return []
+            } else {
+                // Autres jours: 10h → 17h
+                return Array.from({ length: 8 }, (_, i) => i + 10)
+                    .map(hour => `${hour.toString().padStart(2, '0')}:00`)
+            }
         }
     }
 

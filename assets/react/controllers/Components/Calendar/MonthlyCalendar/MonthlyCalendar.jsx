@@ -37,7 +37,7 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
   }
 
   const isDaySelectable = (date) => {
-    return !isPast(date) && !isDayOff(date)
+    return (!isPast(date) && !isDayOff(date)) || isToday(date)
   }
 
   const handleDateSelect = (date) => {
