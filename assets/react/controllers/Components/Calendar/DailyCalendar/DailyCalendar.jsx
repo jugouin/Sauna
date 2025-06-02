@@ -14,12 +14,38 @@ export default function DailyCalendar({ reservations, dateToDisplay, onChangeTim
     const formattedDate = format(new Date(dateToDisplay), "EEEE d MMMM", { locale: fr });
     const maxPersons = saunaType === 'grand' ? 10 : 4;
 
+
+    const isWinter = (date) => {
+        const month = date.getMonth();
+        const day = date.getDate();
+
+        return (month >= 9) || (month < 4) || (month === 4 && day <= 3);
+    };
+
     const availableHours = () => {
         const dayOfWeek = getDay(new Date(dateToDisplay));
-        return Array.from({ length: 12 }, (_, i) => i + 10)
-            .filter(hour => !(dayOfWeek === 5 && (hour === 10 || hour === 11)))
-            .map(hour => `${hour.toString().padStart(2, '0')}:00`);
-    };
+        if (isWinter(dateToDisplay)) {
+            // HIVER: vendredi 12h-21h
+            if (dayOfWeek === 5) {
+                return Array.from({ length: 10 }, (_, i) => i + 12)
+                    .map(hour => `${hour.toString().padStart(2, '0')}:00`)
+            } else {
+                // Autres jours: 10h → 21h
+                return Array.from({ length: 12 }, (_, i) => i + 10)
+                    .map(hour => `${hour.toString().padStart(2, '0')}:00`)
+            }
+        } else {
+            // ÉTÉ: Fermé mercredi/jeudi
+            const closedDays = [3, 4]
+            if (closedDays.includes(dayOfWeek)) {
+                return []
+            } else {
+                // Autres jours: 10h → 17h
+                return Array.from({ length: 8 }, (_, i) => i + 10)
+                    .map(hour => `${hour.toString().padStart(2, '0')}:00`)
+            }
+        }
+    }
 
     const reservationsByHour = reservations.reduce((acc, reservation) => {
         const hour = new Date(reservation.date).toISOString().substring(11, 16);

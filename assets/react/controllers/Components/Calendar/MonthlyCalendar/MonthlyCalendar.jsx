@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format, formatISO, isBefore, isAfter, isToday, startOfDay, setHours, setMinutes } from 'date-fns';
+import { format, formatISO, isBefore, isToday, startOfDay, setHours, setMinutes, getDay } from 'date-fns';
 import DailyCalendar from '../DailyCalendar/DailyCalendar';
 import "./MonthlyCalendar.css";
 
@@ -23,36 +23,52 @@ export default function Calendar({ onDateChange, reservations, personNb, saunaTy
     return reservations.filter(reservation => 
       format(new Date(reservation.date), 'yyyy-MM-dd') === formattedDate
     );
-  };
+  }
+
+  const isPast = (date) => {
+    const today = startOfDay(new Date())
+    const targetDate = startOfDay(date)
+    return isBefore(targetDate, today)
+  }
+
+  const isDayOff = (date) => {
+    const isChristmas = date.getDate() === 25 && date.getMonth() === 11
+    return isChristmas
+  }
+
+  const isWinter = (date) => {
+    const month = date.getMonth();
+    const day = date.getDate();
+    return (month >= 9) || (month < 4) || (month === 4 && day <= 3);
+  }
+
+  const isClosed = (date) => {
+    const dayOfWeek = getDay(new Date(date));
+    const closedDays = [3, 4]
+    return closedDays.includes(dayOfWeek)
+  }
+
+  const summerException = (date) => {
+    return !isWinter(date) && isClosed(date)
+  }
 
   const isDaySelectable = (date) => {
-    const now = new Date();
-    const seasonStart = new Date(date.getFullYear(), 9, 1)
-    const seasonEnd = new Date(date.getFullYear(), 4, 2)
-    if (date.getDate() === 25 && date.getMonth() === 11 ) {
-      return false;
-    } 
-    if (isAfter(date, seasonEnd) && isBefore(date, seasonStart)) {
-      return false;
-    } else {
-      return isBefore(startOfDay(now), date) || isToday(date);
-    }
-  };
+    return (!isPast(date) && !isDayOff(date) && !summerException(date))|| isToday(date)
+  }
 
   const handleDateSelect = (date) => {
-    setSelectedDate(date);
-    handleTimeChange(date, selectedTime || stringHour);
-  };
+    setSelectedDate(date)
+    handleTimeChange(date, selectedTime || stringHour)
+  }
   
   const handleTimeChange = (date, time) => {
-    
     if (date && time) {
       const [hours, minutes] = time.split(':').map(Number);
       const reservationDate = setMinutes(setHours(date, hours), minutes);
       const newDateTimeISO = formatISO(reservationDate);
       onDateChange(newDateTimeISO);
     }
-  };
+  }
 
   const renderDailyCalendar = () => {
     const dateToDisplay = selectedDate || new Date();

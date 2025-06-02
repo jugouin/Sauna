@@ -15,6 +15,15 @@ const style = {
     p: 4,
 };
 
+const isDisabled = () => {
+  const date = new Date()
+  const year = date.getFullYear();
+  const seasonStart = new Date(year, 9, 1);     // 1er octobre (mois = 9)
+  const seasonEnd = new Date(year + 1, 4, 2);   // 2 mai de l'année suivante
+
+  return date >= seasonStart || date < seasonEnd;
+}
+
 export default function SaunaModal({ open, handleClose, title }) {
 
   return (
@@ -31,7 +40,7 @@ export default function SaunaModal({ open, handleClose, title }) {
         <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
           <a href="/reservation?saunaType=petit">Le petit sauna (4 personnes)</a>
         </Button>
-        <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
+        <Button onClick={handleClose}  disabled={isDisabled} sx={{ color: '#462A1A' }}>
           <a href="/reservation?saunaType=grand">Le grand sauna (10 personnes)</a>
         </Button>
         <Button onClick={handleClose} sx={{ color: '#462A1A', position: 'absolute', top: '10%', left: '80%' }}>
