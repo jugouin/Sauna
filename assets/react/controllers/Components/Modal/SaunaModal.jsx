@@ -21,7 +21,7 @@ const isDisabled = () => {
   const seasonStart = new Date(year, 9, 1);     // 1er octobre (mois = 9)
   const seasonEnd = new Date(year + 1, 4, 2);   // 2 mai de l'année suivante
 
-  return date >= seasonStart || date < seasonEnd;
+  return !(date >= seasonStart || date < seasonEnd);
 }
 
 export default function SaunaModal({ open, handleClose, title }) {
