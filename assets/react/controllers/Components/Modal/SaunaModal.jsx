@@ -15,8 +15,6 @@ const style = {
     p: 4,
 };
 
-const disabled = isDisabled();
-
 const isDisabled = () => {
   const date = new Date()
   const year = date.getFullYear();
@@ -39,11 +37,22 @@ export default function SaunaModal({ open, handleClose, title }) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {title}
         </Typography>
-        <Button onClick={handleClose} sx={{ color: '#462A1A' }}>
-          <a href="/reservation?saunaType=petit">Le petit sauna (4 personnes)</a>
+        <Button
+          component="a" 
+          href="/reservation?saunaType=petit"
+          onClick={handleClose}
+          sx={{ color: '#462A1A' }}
+        >
+          Le petit sauna (4 personnes)
         </Button>
-        <Button onClick={handleClose}  disabled={disabled} sx={{ color: '#462A1A' }}>
-          <a href="/reservation?saunaType=grand">Le grand sauna (10 personnes)</a>
+        <Button 
+          component="a" 
+          href="/reservation?saunaType=grand" 
+          onClick={handleClose} 
+          disabled={isDisabled()} 
+          sx={{ color: '#462A1A' }}
+        >
+          Le grand sauna (10 personnes)
         </Button>
         <Button onClick={handleClose} sx={{ color: '#462A1A', position: 'absolute', top: '10%', left: '80%' }}>
           X
